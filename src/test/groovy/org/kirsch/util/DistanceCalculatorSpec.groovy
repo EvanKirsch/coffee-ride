@@ -1,4 +1,3 @@
-import com.google.type.LatLng
 import org.kirsch.util.DistanceCalculator
 
 class DistanceCalculatorSpec extends CoffeeRideDecoratorSpec {

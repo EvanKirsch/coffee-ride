@@ -4,14 +4,13 @@ import com.google.maps.places.v1.Place;
 import com.google.type.LatLng;
 import java.util.ArrayList;
 import java.util.List;
-import org.kirsch.model.WeightedPlaceGraph;
 import org.kirsch.model.Node;
+import org.kirsch.model.WeightedPlaceGraph;
 import org.kirsch.util.DistanceCalculator;
 
-// could be abstracted
-public class GraphFactory {
+public class WeightedPlaceGraphFactory implements PlaceGraphFactory {
 
-  public static WeightedPlaceGraph buildWeightedPlaceGraph(List<Place> places, LatLng origin, LatLng target) {
+  public WeightedPlaceGraph createGraph(List<Place> places, LatLng origin, LatLng target) {
     List<Node> nodes = new ArrayList<>();
     for (Place place : places) {
       long distanceToTarget = DistanceCalculator.approxCrowDistance(place.getLocation(), target);
