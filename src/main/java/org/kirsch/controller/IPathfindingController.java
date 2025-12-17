@@ -1,9 +1,10 @@
 package org.kirsch.controller;
 
-import com.google.type.LatLng;
+import org.kirsch.model.PathfindingRequest;
+import org.kirsch.model.PathfindingResponse;
 
 public interface IPathfindingController {
 
-  void getRoute(LatLng origin, LatLng destination);
+  PathfindingResponse findRoute(PathfindingRequest pathfindingRequest);
 
 }

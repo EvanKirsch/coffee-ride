@@ -2,7 +2,7 @@ package org.kirsch.util;
 
 import com.google.type.LatLng;
 
-public class DistanceCalculator {
+public final class DistanceCalculator {
 
   public static LatLng approxCenter(LatLng p0, LatLng p1) {
     double latMid = (p0.getLatitude() + p1.getLatitude()) / 2;

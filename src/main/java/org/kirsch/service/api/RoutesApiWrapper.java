@@ -59,7 +59,7 @@ public class RoutesApiWrapper implements IRoutesApiWrapper {
     }
   }
 
-  private static Waypoint createWaypointForLatLng(LatLng latLng) {
+  Waypoint createWaypointForLatLng(LatLng latLng) {
     return Waypoint.newBuilder()
         .setLocation(Location.newBuilder()
             .setLatLng(latLng)

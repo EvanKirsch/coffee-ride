@@ -4,6 +4,9 @@ import com.google.maps.places.v1.Place;
 import com.google.type.LatLng;
 import java.util.ArrayList;
 import java.util.List;
+import org.kirsch.model.CoffeeRidePlace;
+import org.kirsch.model.PathfindingRequest;
+import org.kirsch.model.PathfindingResponse;
 import org.kirsch.model.WeightedPlaceGraph;
 import org.kirsch.service.api.ISearchNearbyPlacesApiWrapper;
 import org.kirsch.service.api.SearchNearbyPlacesApiWrapper;
@@ -31,19 +34,26 @@ public class SdtPathFinder implements IPathFinder {
   }
 
   @Override
-  public List<Place> buildRoute(LatLng origin, LatLng destination) {
+  public PathfindingResponse buildRoute(PathfindingRequest pathfindingRequest) {
     LatLng target;
-    List<Place> bestRoute = new ArrayList<>();
+    List<CoffeeRidePlace> bestRoute = new ArrayList<>();
+    LatLng origin = LatLng.newBuilder()
+        .setLatitude(pathfindingRequest.getOrgLat())
+        .setLongitude(pathfindingRequest.getOrgLng())
+        .build();
+    LatLng destination = LatLng.newBuilder()
+        .setLatitude(pathfindingRequest.getDstLat())
+        .setLongitude(pathfindingRequest.getDstLng())
+        .build();
     do {
-      target = DistanceCalculator.findNextTarget(origin, destination, 0.3);
+      target = DistanceCalculator.findNextTarget(origin, destination, 0.1);
       List<Place> places = searchPlacesWrapper.doGet(origin, target);
       WeightedPlaceGraph graph = graphFactory.createGraph(places, origin, target);
       edgeCalculator.sortNodes(graph);
       origin = graph.getNodes().get(0).getPlace().getLocation();
-      bestRoute.add(graph.getNodes().get(0).getPlace());
+      bestRoute.add(new CoffeeRidePlace(graph.getNodes().get(0).getPlace()));
     } while (target != destination);
-    debugUtil.printPlaces(bestRoute);
-    return bestRoute;
+    return new PathfindingResponse(bestRoute);
   }
 
 }

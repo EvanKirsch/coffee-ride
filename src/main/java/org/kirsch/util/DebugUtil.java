@@ -5,7 +5,7 @@ import java.util.List;
 import org.kirsch.model.Node;
 import org.kirsch.model.WeightedPlaceGraph;
 
-public class DebugUtil {
+public final class DebugUtil {
 
   private static DebugUtil debugUtil;
 

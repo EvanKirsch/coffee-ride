@@ -1,11 +1,12 @@
 package org.kirsch.service.pathfinding;
 
 import com.google.maps.places.v1.Place;
-import com.google.type.LatLng;
 import java.util.List;
+import org.kirsch.model.PathfindingRequest;
+import org.kirsch.model.PathfindingResponse;
 
 public interface IPathFinder {
 
-  List<Place> buildRoute(LatLng origin, LatLng destination);
+  PathfindingResponse buildRoute(PathfindingRequest pathfindingRequest);
 
 }
