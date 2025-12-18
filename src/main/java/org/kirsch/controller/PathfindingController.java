@@ -1,10 +1,12 @@
 package org.kirsch.controller;
 
 import org.kirsch.model.PathfindingRequest;
+import org.kirsch.model.PathfindingRequestStr;
 import org.kirsch.model.PathfindingResponse;
 import org.kirsch.service.pathfinding.IPathFinder;
 import org.kirsch.service.pathfinding.SdtPathFinder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,17 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class PathfindingController implements IPathfindingController {
 
   private final IPathFinder pathFinder;
+  private final ConversionService conversionService;
 
   @Autowired
-  public PathfindingController(SdtPathFinder pathFinder) {
+  public PathfindingController(SdtPathFinder pathFinder, ConversionService conversionService) {
     this.pathFinder = pathFinder;
+    this.conversionService = conversionService;
   }
 
   @PutMapping
   @ResponseBody
   @Override
-  public PathfindingResponse findRoute(@RequestBody PathfindingRequest pathfindingRequest) {
-    return pathFinder.buildRoute(pathfindingRequest);
+  public PathfindingResponse findRoute(@RequestBody PathfindingRequestStr requestStr) {
+    PathfindingRequest request = conversionService.convert(requestStr, PathfindingRequest.class);
+    return pathFinder.buildRoute(request);
   }
 
 }

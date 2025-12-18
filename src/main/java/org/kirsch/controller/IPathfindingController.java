@@ -1,10 +1,10 @@
 package org.kirsch.controller;
 
-import org.kirsch.model.PathfindingRequest;
+import org.kirsch.model.PathfindingRequestStr;
 import org.kirsch.model.PathfindingResponse;
 
 public interface IPathfindingController {
 
-  PathfindingResponse findRoute(PathfindingRequest pathfindingRequest);
+  PathfindingResponse findRoute(PathfindingRequestStr pathfindingRequest);
 
 }
