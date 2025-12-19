@@ -1,6 +1,7 @@
 package org.kirsch.model;
 
 import com.google.maps.places.v1.Place;
+import com.google.type.LatLng;
 import lombok.Data;
 
 @Data
@@ -18,6 +19,14 @@ public class CoffeeRidePlace {
     this.lat = place.getLocation().getLatitude();
     this.lng = place.getLocation().getLongitude();
     this.name = place.getName();
+  }
+
+  public CoffeeRidePlace(LatLng latLng) {
+    this.displayName = "";
+    this.address = "";
+    this.lat = latLng.getLatitude();
+    this.lng = latLng.getLongitude();
+    this.name = "";
   }
 
 }

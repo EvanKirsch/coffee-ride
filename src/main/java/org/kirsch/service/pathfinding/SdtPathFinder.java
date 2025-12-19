@@ -42,6 +42,7 @@ public class SdtPathFinder implements IPathFinder {
         .setLatitude(pathfindingRequest.getOrgLat())
         .setLongitude(pathfindingRequest.getOrgLng())
         .build();
+    bestRoute.add(new CoffeeRidePlace(origin));
     LatLng destination = LatLng.newBuilder()
         .setLatitude(pathfindingRequest.getDstLat())
         .setLongitude(pathfindingRequest.getDstLng())
@@ -61,6 +62,7 @@ public class SdtPathFinder implements IPathFinder {
         isDeadEnd = true;
       }
     } while (target != destination && !isDeadEnd);
+    bestRoute.add(new CoffeeRidePlace(destination));
     return new PathfindingResponse(bestRoute);
   }
 
