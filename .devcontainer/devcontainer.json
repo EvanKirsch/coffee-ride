@@ -10,8 +10,7 @@
 			"version": "none",
 			"installMaven": "true",
 			"installGradle": "false"
-		},
-		"ghcr.io/devcontainers-extra/features/npm-package:1": {}
+		}
 	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
