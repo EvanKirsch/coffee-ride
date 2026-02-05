@@ -2,9 +2,7 @@
   - [ ] Make url factory more powerful
     - [ ] handle running from github codespce containers 
 - [ ] test server side geocoding service wrapper
-- [ ] make prettier
-- [ ] lookup by name
-- [ ] fix pathfinding to solution on dead end
-- [ ] clean up unused objects
+- [ ] fix pathfinding to solution on dead end in stdpathfinder
 - [ ] print more details on screen
 - [ ] client side api key
+- [ ] make prettier

@@ -60,7 +60,6 @@ public class SdtPathFinder implements IPathFinder {
         curOrigin = nodes.get(0).getPlace().getLocation();
         bestRoute.add(nodes.get(0).getPlace());
       } else {
-        // TODO - solve
         isDeadEnd = true;
       }
     } while (target != destination && !isDeadEnd);
