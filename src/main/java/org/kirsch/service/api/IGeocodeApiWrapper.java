@@ -4,7 +4,6 @@ import com.google.type.LatLng;
 
 public interface IGeocodeApiWrapper {
 
-  // TODO
-  LatLng geocodeLocation(String name);
+  LatLng geocode(String address);
 
 }
