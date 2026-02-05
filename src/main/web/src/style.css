@@ -1,13 +1,27 @@
-#map {
-    height: 95%;
-}
 #submitBox {
-    height: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: .98;
+    z-index: 1;
 }
-
+#submitForm {
+    background-color: aliceblue;
+    margin: 10px;
+    padding: 10px;
+}
+#map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
 html,
 body {
     height: 100%;
-    margin: 1;
+    margin: 0;
     padding: 0;
+    z-index: -1;
 }

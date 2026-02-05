@@ -1,8 +1,10 @@
 - [x] add endpoint provider for portablitity
   - [ ] Make url factory more powerful
     - [ ] handle running from github codespce containers 
+- [ ] add server side geocoding service wrapper
 - [ ] make prettier
 - [ ] lookup by name
 - [ ] fix pathfinding to solution on dead end
 - [ ] clean up unused objects
 - [ ] print more details on screen
+- [ ] client side api key

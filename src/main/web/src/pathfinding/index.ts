@@ -1,6 +1,22 @@
 let map: google.maps.Map;
 import { EndpointFactory } from "../common/endpointFactory"
 
+async function initAutocompleteWidgets() {
+  (await google.maps.importLibrary('places')) as google.maps.PlacesLibrary;
+ 
+  const originPlaceAutocomplete = new google.maps.places.PlaceAutocompleteElement(
+      {}
+  );
+  originPlaceAutocomplete.setAttribute("id", "origin")
+  document.getElementById("origin")?.replaceWith(originPlaceAutocomplete);
+  
+  const destPlaceAutocomplete = new google.maps.places.PlaceAutocompleteElement(
+      {}
+  );
+  destPlaceAutocomplete.setAttribute("id", "destination")
+  document.getElementById("destination")?.replaceWith(destPlaceAutocomplete);
+}
+
 async function initMap(): Promise<void> {
     const { Map } = (await google.maps.importLibrary("maps")) as google.maps.MapsLibrary;
     map = new Map(document.getElementById("map") as HTMLElement, {
@@ -49,3 +65,4 @@ document.getElementById("fcsSubmit")?.addEventListener("click", function(e) {
 })
 
 initMap();
+initAutocompleteWidgets();
