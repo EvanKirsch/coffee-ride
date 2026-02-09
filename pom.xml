@@ -68,6 +68,26 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>2.0.0</version>
+        <executions>
+          <execution>
+            <!-- optional: you don't really need execution ids, but it looks nice in your build log. -->
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <!-- optional: default phase is "generate-resources" -->
+            <phase>generate-resources</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <nodeVersion>v24.12.0</nodeVersion>
+          <npmVersion>11.6.2</npmVersion>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.6.3</version>
@@ -77,7 +97,7 @@
             <goals>
               <goal>exec</goal>
             </goals>
-            <phase>generate-sources</phase>
+            <phase>generate-resources</phase>
             <configuration>
               <executable>npm</executable>
               <arguments>

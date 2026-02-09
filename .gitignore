@@ -8,6 +8,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
+/node/
 
 ### IntelliJ IDEA ###
 .idea/
