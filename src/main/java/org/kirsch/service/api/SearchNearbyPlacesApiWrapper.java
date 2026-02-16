@@ -13,15 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 import org.kirsch.util.ApplicationProperties;
 import org.kirsch.util.DistanceCalculator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapper {
 
+  private static final Logger log = LoggerFactory.getLogger(SearchNearbyPlacesApiWrapper.class);
   private static final String FIELD_MASK_HEADER = "X-Goog-FieldMask";
   private static final String FIELD_MASK_VALUE = "*";
 
-  private String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
+  private final String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
 
   @Override
   public List<Place> searchNearby(LatLng origin, LatLng destination) {
@@ -53,11 +56,11 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
         if (searchNearbyResponse.isInitialized()) {
           places = searchNearbyResponse.getPlacesList();
         } else {
-          System.out.println("No routes found.");
+          log.warn("No routes found.");
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error(e.getMessage());
     }
     return places;
   }

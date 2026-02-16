@@ -1,5 +1,7 @@
 package org.kirsch.service.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -11,7 +13,9 @@ import org.kirsch.util.ApplicationProperties;
 @Service
 public class GeocodeApiWrapper implements IGeocodeApiWrapper {
 
-  private String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
+  private static final Logger log = LoggerFactory.getLogger(GeocodeApiWrapper.class);
+
+  private final String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
 
   public LatLng geocode(String address) {
     LatLng latLng = null;
@@ -24,7 +28,6 @@ public class GeocodeApiWrapper implements IGeocodeApiWrapper {
       response =  GeocodingApi
         .geocode(context, address)
         .await();
-      System.out.println(response[0]);
 
       latLng = LatLng.newBuilder()
         .setLatitude(response[0].geometry.location.lat)
@@ -32,7 +35,7 @@ public class GeocodeApiWrapper implements IGeocodeApiWrapper {
         .build();
 
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error(e.getMessage());
     } finally {
       context.shutdown();
     }
