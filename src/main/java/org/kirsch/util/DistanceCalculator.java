@@ -42,7 +42,7 @@ public final class DistanceCalculator {
     }
   }
 
-  // TODO - I think there is an issue w/ negative directions. Need to work on tests
+  // TODO - I think there is an issue w/ negative directions. Need to work on tests. There are issues with this mehtod
   private static double approxGapSizeFromMilesToDegrees(LatLng p0, LatLng p1, double flatGap) {
     double avgLat = (p0.getLatitude() + p1.getLatitude()) / 2;
 

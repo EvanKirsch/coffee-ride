@@ -50,15 +50,16 @@ class DistanceCalculatorSpec extends CoffeeRideDecoratorSpec {
 
     def "ApproxGapSieFromMilesToDegrees"() {
         when:
-        def found = DistanceCalculator.approxGapSizeFromMilesToDegrees(p0, p1, 1.0)
+        def found = DistanceCalculator.approxGapSizeFromMilesToDegrees(p0, p1, 10.0)
 
         then:
         found == expected
         0 * _
 
         where:
-        p0              | p1              | expected
-        CLatLng(80, 80) | CLatLng(0, 80)  | 0.014471780028943561
+        p0                                            | p1                                             | expected
+        CLatLng(80, 80)                               | CLatLng(0, 80)                                 | 0.014471780028943561
+        CLatLng(42.5131088634076, -88.08377988941972) | CLatLng(42.58757147130491, -87.91570340805083) | 0.24253908926
     }
 
 }
