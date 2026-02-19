@@ -5,6 +5,7 @@ import java.util.List;
 import org.kirsch.model.PathfindingRequest;
 import org.kirsch.model.PathfindingRequestStr;
 import org.kirsch.model.PathfindingResponse;
+import org.kirsch.model.RouteDetails;
 import org.kirsch.service.pathfinding.IPathFinder;
 import org.kirsch.service.pathfinding.SdtPathFinder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,8 @@ public class PathfindingController implements IPathfindingController {
   @Override
   public PathfindingResponse findRoute(@RequestBody PathfindingRequestStr requestStr) {
     PathfindingRequest request = conversionService.convert(requestStr, PathfindingRequest.class);
-    List<Route> route = pathFinder.buildRoute(request);
-    PathfindingResponse response = conversionService.convert(route.get(0), PathfindingResponse.class);
+    RouteDetails route = pathFinder.buildRoute(request);
+    PathfindingResponse response = conversionService.convert(route, PathfindingResponse.class);
     return response;
   }
 

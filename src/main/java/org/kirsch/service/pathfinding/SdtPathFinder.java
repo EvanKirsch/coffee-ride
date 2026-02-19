@@ -5,6 +5,7 @@ import com.google.maps.routing.v2.Route;
 import com.google.type.LatLng;
 import java.util.ArrayList;
 import java.util.List;
+import org.kirsch.model.RouteDetails;
 import org.kirsch.model.Node;
 import org.kirsch.model.PathfindingRequest;
 import org.kirsch.model.WeightedPlaceGraph;
@@ -42,9 +43,9 @@ public class SdtPathFinder implements IPathFinder {
   }
 
   @Override
-  public List<Route> buildRoute(PathfindingRequest pathfindingRequest) {
+  public RouteDetails buildRoute(PathfindingRequest pathfindingRequest) {
     LatLng target;
-    List<Place> bestRoute = new ArrayList<>();
+    List<Place> intermediates = new ArrayList<>();
 
     LatLng origin = geocodeApiWrapper.geocode(pathfindingRequest.getOrgAddress());
     LatLng curOrigin = origin;
@@ -61,13 +62,13 @@ public class SdtPathFinder implements IPathFinder {
       List<Node> nodes = graph.getNodes();
       if (nodes != null && !nodes.isEmpty()) {
         curOrigin = nodes.get(0).getPlace().getLocation();
-        bestRoute.add(nodes.get(0).getPlace());
+        intermediates.add(nodes.get(0).getPlace());
       } else {
         isDeadEnd = true;
       }
     } while (target != destination && !isDeadEnd && i < 20);
-    List<Route> routes = routesApiWrapper.computeRoute(origin, destination, bestRoute);
-    return routes;
+    List<Route> routes = routesApiWrapper.computeRoute(origin, destination, intermediates);
+    return new RouteDetails(routes, intermediates);
   }
 
 }
