@@ -1,7 +1,5 @@
 package org.kirsch.controller;
 
-import com.google.maps.routing.v2.Route;
-import java.util.List;
 import org.kirsch.model.PathfindingRequest;
 import org.kirsch.model.PathfindingRequestStr;
 import org.kirsch.model.PathfindingResponse;
