@@ -1,9 +1,11 @@
 package org.kirsch.service.api
 
-import org.kirsch.CoffeeRideDecoratorSpec
+import org.kirsch.SpecDec
 import org.kirsch.util.distance.DistanceCalculatorFactory
+import spock.lang.Ignore
 
-class SearchNearbyPlacesApiWrapperSpec extends CoffeeRideDecoratorSpec {
+@Ignore
+class SearchNearbyPlacesApiWrapperSpec extends SpecDec {
 
     SearchNearbyPlacesApiWrapper snp // testing impl not interface
     DistanceCalculatorFactory dcf

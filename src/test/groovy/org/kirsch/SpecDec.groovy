@@ -3,7 +3,7 @@ package org.kirsch
 import com.google.type.LatLng
 import spock.lang.Specification
 
-class CoffeeRideDecoratorSpec extends Specification {
+class SpecDec extends Specification {
 
     def "CLatLng"(double lat, double lng) {
         return LatLng.newBuilder()
