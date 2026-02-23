@@ -1,8 +1,8 @@
 ```bash
 curl -X PUT -d '{
-  "origin":"42.680835452638945,-88.28317875190854",
-  "destination":"43.03205698379127,-87.91330479781325",
-  "step":"0.2"
+  "origin":"Milwaukee, WI",
+  "destination":"Burlington, WI",
+  "stepMiles":"10"
 }' -H 'Content-Type: application/json' coffeeride.io/pathfinding
 ```
 
