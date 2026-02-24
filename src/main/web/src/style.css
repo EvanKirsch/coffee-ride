@@ -1,11 +1,21 @@
-#submitBox {
+#submit-box {
     position: absolute;
     top: 0;
     left: 0;
     opacity: .98;
     z-index: 1;
 }
-#submitForm {
+#route-details {
+    position: absolute;
+    background-color: aliceblue;
+    margin: 10px;
+    padding: 10px;
+    top: 0;
+    left: 80%;
+    opacity: .98;
+    z-index: 1;
+}
+#submit-form {
     background-color: aliceblue;
     margin: 10px;
     padding: 10px;
@@ -24,6 +34,9 @@
     background: rgba(var(--yellow), 0.4);
     position: absolute;
     z-index: 2;
+}
+.off {
+    display: none;
 }
 html,
 body {
