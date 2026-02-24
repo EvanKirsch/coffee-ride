@@ -52,14 +52,15 @@ export class PathfindingResponseRenderer {
   private renderRouteDetails(legs : CoffeeRideLeg[]) {
     const routeDetails = document.getElementById("route-details");
     if (!!routeDetails) {
-      routeDetails.classList.add("on")
-      routeDetails.classList.remove("off")
+      routeDetails.classList.add("on");
+      routeDetails.classList.remove("off");
       const routeDetailsList = document.createElement("ol");
-      routeDetailsList.classList.add("float-right");
+      routeDetailsList.classList.add("list-group");
       legs.forEach((place) => {
-        let words = document.createElement("li");
-        words.innerText = place.destination.displayName + " " + place.destination.address;
-        routeDetailsList.appendChild(words);
+        let li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.innerText = place.destination.displayName + " " + place.destination.address;
+        routeDetailsList.appendChild(li);
       })
       routeDetails.appendChild(routeDetailsList);
     }
@@ -76,8 +77,8 @@ export class PathfindingResponseRenderer {
     const routeDetails = document.getElementById("route-details");
     if (!!routeDetails) {
       routeDetails.innerHTML = "";
-      routeDetails.classList.add("off")
-      routeDetails.classList.remove("on")
+      routeDetails.classList.add("off");
+      routeDetails.classList.remove("on");
     }
   }
 

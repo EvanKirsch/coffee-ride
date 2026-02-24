@@ -7,11 +7,11 @@
 }
 #route-details {
     position: absolute;
-    background-color: aliceblue;
+    background-color: white;
     margin: 10px;
     padding: 10px;
     top: 0;
-    left: 80%;
+    right: 0;
     opacity: .98;
     z-index: 1;
 }
@@ -30,7 +30,7 @@
 }
 .under-construction {
     width: 100%;
-    --yellow:       255, 215, 0;
+    --yellow: 255, 215, 0;
     background: rgba(var(--yellow), 0.4);
     position: absolute;
     z-index: 2;
