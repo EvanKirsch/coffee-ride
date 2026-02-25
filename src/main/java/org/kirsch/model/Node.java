@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Node {
+public final class Node {
 
   private final Place place;
   private final double distanceToTerminus;

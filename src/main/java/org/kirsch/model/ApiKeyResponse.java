@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ApiKeyResponse {
+public final class ApiKeyResponse {
 
   private String key;
 

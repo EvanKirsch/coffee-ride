@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class RouteDetails {
+public final class RouteDetails {
 
   private final List<Route> routeList;
   private final List<Place> intermediates;

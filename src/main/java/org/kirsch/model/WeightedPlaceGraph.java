@@ -3,7 +3,7 @@ package org.kirsch.model;
 
 import java.util.List;
 
-public class WeightedPlaceGraph {
+public final class WeightedPlaceGraph {
 
   private List<Node> nodes;
 

@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class WaypointConverter implements Converter<LatLng, Waypoint> {
+public final class WaypointKConverter implements Converter<LatLng, Waypoint> {
 
   @Override
   public Waypoint convert(@NonNull LatLng latLng) {

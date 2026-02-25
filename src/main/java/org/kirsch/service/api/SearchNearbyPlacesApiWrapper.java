@@ -8,9 +8,9 @@ import com.google.maps.places.v1.PlacesClient;
 import com.google.maps.places.v1.PlacesSettings;
 import com.google.maps.places.v1.SearchNearbyRequest;
 import com.google.maps.places.v1.SearchNearbyResponse;
-import com.google.type.LatLng;
 import java.util.ArrayList;
 import java.util.List;
+import org.kirsch.model.gcs.LatLng;
 import org.kirsch.util.ApplicationProperties;
 import org.kirsch.util.distance.IDistanceCalculator;
 import org.kirsch.util.distance.SphereDistanceCalculatorFactory;
@@ -52,7 +52,8 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
 
       try (PlacesClient placesClient = PlacesClient.create(placesSettings)) {
 
-        SearchNearbyRequest.LocationRestriction restriction = getLocationRestriction(origin, destination);
+        SearchNearbyRequest.LocationRestriction restriction = getLocationRestriction(origin,
+            destination);
 
         SearchNearbyRequest request = SearchNearbyRequest.newBuilder()
             .addIncludedTypes("coffee_shop")
@@ -74,10 +75,17 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
     return places;
   }
 
-  SearchNearbyRequest.LocationRestriction getLocationRestriction(LatLng origin, LatLng destination) {
+  SearchNearbyRequest.LocationRestriction getLocationRestriction(LatLng origin,
+      LatLng destination) {
+
+    // rebuild in google LatLng obj
+    com.google.type.LatLng ll = com.google.type.LatLng.newBuilder()
+        .setLatitude(destination.getLatitude().toDegrees())
+        .setLongitude(destination.getLongitude().toDegrees())
+        .build();
 
     Circle searchArea = Circle.newBuilder()
-        .setCenter(destination)
+        .setCenter(ll)
         .setRadius(distanceCalculator.approxDistance(origin, destination))
         .build();
 

@@ -5,7 +5,7 @@ import com.google.type.LatLng;
 import lombok.Data;
 
 @Data
-public class CoffeeRidePlace {
+public final class CoffeeRidePlace {
 
   private final String displayName;
   private final String address;

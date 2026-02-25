@@ -1,14 +1,15 @@
 package org.kirsch
 
-import com.google.type.LatLng
+import org.kirsch.model.gcs.LatLng
+import org.kirsch.model.gcs.Coordinate
 import spock.lang.Specification
 
 class SpecDec extends Specification {
 
     def "CLatLng"(double lat, double lng) {
-        return LatLng.newBuilder()
-                .setLatitude(lat)
-                .setLongitude(lng)
+        return LatLng.builder()
+                .latitude(Coordinate.fromDegrees(lat))
+                .longitude(Coordinate.fromDegrees(lng))
                 .build()
     }
 

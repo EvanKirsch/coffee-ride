@@ -1,6 +1,6 @@
 package org.kirsch.service.api;
 
-import com.google.type.LatLng;
+import org.kirsch.model.gcs.LatLng;
 
 public interface IGeocodeApiWrapper {
 

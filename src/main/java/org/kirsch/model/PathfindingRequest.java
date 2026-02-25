@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PathfindingRequest {
+public final class PathfindingRequest {
 
   private final String orgAddress;
   private final String dstAddress;

@@ -2,7 +2,6 @@ package org.kirsch.service.pathfinding;
 
 import com.google.maps.places.v1.Place;
 import com.google.maps.routing.v2.Route;
-import com.google.type.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 import org.kirsch.model.RouteDetails;
@@ -15,10 +14,13 @@ import org.kirsch.service.api.IRoutesApiWrapper;
 import org.kirsch.service.api.ISearchNearbyPlacesApiWrapper;
 import org.kirsch.service.api.RoutesApiWrapper;
 import org.kirsch.service.api.SearchNearbyPlacesApiWrapper;
+import org.kirsch.converter.LatLngConverter;
 import org.kirsch.util.distance.IDistanceCalculator;
 import org.kirsch.util.distance.SphereDistanceCalculatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.kirsch.model.gcs.LatLng;
 
 @Service
 public class SdtPathFinder implements IPathFinder {
@@ -29,6 +31,7 @@ public class SdtPathFinder implements IPathFinder {
   private final IPlaceGraphFactory graphFactory;
   private final IGeocodeApiWrapper geocodeApiWrapper;
   private final IDistanceCalculator distanceCalculator;
+  private final ConversionService conversionService;
 
   @Autowired
   public SdtPathFinder(SearchNearbyPlacesApiWrapper searchPlacesWrapper,
@@ -36,7 +39,8 @@ public class SdtPathFinder implements IPathFinder {
       EdgeCalculator edgeCalculator,
       IPlaceGraphFactory graphFactory,
       GeocodeApiWrapper geocodeApiWrapper,
-      SphereDistanceCalculatorFactory dcFactory
+      SphereDistanceCalculatorFactory dcFactory,
+      ConversionService conversionService
       ) {
     this.routesApiWrapper = routesApiWrapper;
     this.searchPlacesWrapper = searchPlacesWrapper;
@@ -44,6 +48,7 @@ public class SdtPathFinder implements IPathFinder {
     this.graphFactory = graphFactory;
     this.geocodeApiWrapper = geocodeApiWrapper;
     this.distanceCalculator = dcFactory.getCalculator();
+    this.conversionService = conversionService;
   }
 
   @Override
@@ -65,7 +70,7 @@ public class SdtPathFinder implements IPathFinder {
       edgeCalculator.sortNodes(graph);
       List<Node> nodes = graph.getNodes();
       if (nodes != null && !nodes.isEmpty()) {
-        curOrigin = nodes.get(0).getPlace().getLocation();
+        curOrigin = conversionService.convert(nodes.get(0).getPlace().getLocation(), LatLng.class);
         intermediates.add(nodes.get(0).getPlace());
       } else {
         isDeadEnd = true;

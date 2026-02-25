@@ -1,6 +1,7 @@
 package org.kirsch.util.distance;
 
-import com.google.type.LatLng;
+import org.kirsch.model.gcs.Coordinate;
+import org.kirsch.model.gcs.LatLng;
 
 abstract class DistanceCalculator implements IDistanceCalculator {
 
@@ -11,13 +12,17 @@ abstract class DistanceCalculator implements IDistanceCalculator {
   public abstract LatLng findNextTarget(LatLng p0, LatLng p1, double flatGap);
 
   public LatLng getCenter(LatLng p0, LatLng p1) {
-    double latMid = (p0.getLatitude() + p1.getLatitude()) / 2;
-    double lngMid = (p0.getLongitude() + p1.getLongitude()) / 2;
+    double latMid = (p0.getLatitude().toDegrees() + p1.getLatitude().toDegrees()) / 2;
+    double lngMid = (p0.getLongitude().toDegrees() + p1.getLongitude().toDegrees()) / 2;
 
-    return LatLng.newBuilder()
-        .setLatitude(latMid)
-        .setLongitude(lngMid)
+    return LatLng.builder()
+        .latitude(Coordinate.fromDegrees(latMid))
+        .longitude(Coordinate.fromDegrees(lngMid))
         .build();
+  }
+
+  protected static double distance(Coordinate c0, Coordinate c1) {
+    return Math.sqrt(Math.pow(c0.toDegrees() - c1.toDegrees(), 2));
   }
 
 }

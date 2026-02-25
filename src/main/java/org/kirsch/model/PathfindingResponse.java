@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class PathfindingResponse {
+public final class PathfindingResponse {
 
   private List<CoffeeRideLeg> legs;
   private String encodedPolyline;

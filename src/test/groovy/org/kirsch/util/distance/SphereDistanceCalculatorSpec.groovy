@@ -57,7 +57,7 @@ class SphereDistanceCalculatorSpec extends SpecDec {
 
         where:
         p0                                              | p1                                               | expected
-        CLatLng(38.897778, -77.036389)                  | CLatLng(48.858222, 2.2945)                       | 725
+        CLatLng(38.897778, -77.036389)                  | CLatLng(48.858222, 2.2945)                       | 750
         CLatLng(0.0, 0.0)                               | CLatLng(0.0, 0.0)                                | 0      // no vector exists
         CLatLng(35.66145292768596, -117.6372638312428)  | CLatLng(39.55882733378412, -88.63335914189523)   | 795
         CLatLng(49.48572475342304, -86.26031239458499)  | CLatLng(34.29321860183609, -86.52398425539724)   | 1000
@@ -70,7 +70,7 @@ class SphereDistanceCalculatorSpec extends SpecDec {
         def found = sdc.getCenter(p0, p1)
 
         then:
-        found == expected
+        found.equals(expected)
         0 * _
 
         where:

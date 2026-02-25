@@ -11,7 +11,6 @@ import com.google.maps.routing.v2.RoutesClient;
 import com.google.maps.routing.v2.RoutesSettings;
 import com.google.maps.routing.v2.RoutingPreference;
 import com.google.maps.routing.v2.Waypoint;
-import com.google.type.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 import org.kirsch.util.ApplicationProperties;
@@ -20,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.kirsch.model.gcs.LatLng;
 
 @Service
 public class RoutesApiWrapper implements IRoutesApiWrapper {

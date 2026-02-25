@@ -1,13 +1,13 @@
 package org.kirsch.service.api;
 
+import org.kirsch.model.gcs.Coordinate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
-import com.google.type.LatLng;
-
+import org.kirsch.model.gcs.LatLng;
 import org.kirsch.util.ApplicationProperties;
 
 @Service
@@ -29,9 +29,9 @@ public class GeocodeApiWrapper implements IGeocodeApiWrapper {
         .geocode(context, address)
         .await();
 
-      latLng = LatLng.newBuilder()
-        .setLatitude(response[0].geometry.location.lat)
-        .setLongitude( response[0].geometry.location.lng)
+      latLng = LatLng.builder()
+        .latitude(Coordinate.fromDegrees(response[0].geometry.location.lat))
+        .longitude(Coordinate.fromDegrees(response[0].geometry.location.lng))
         .build();
 
     } catch (Exception e) {

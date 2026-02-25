@@ -1,6 +1,6 @@
 package org.kirsch.util.distance;
 
-import com.google.type.LatLng;
+import org.kirsch.model.gcs.LatLng;
 
 public interface IDistanceCalculator {
 

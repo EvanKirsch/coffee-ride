@@ -3,7 +3,7 @@ package org.kirsch.model;
 import lombok.Data;
 
 @Data
-public class PathfindingRequestStr {
+public final class PathfindingRequestStr {
 
   private final String origin;
   private final String destination;

@@ -1,6 +1,7 @@
 package org.kirsch.util.distance;
 
-import com.google.type.LatLng;
+import org.kirsch.model.gcs.Coordinate;
+import org.kirsch.model.gcs.LatLng;
 import org.springframework.stereotype.Component;
 
 // notes on distance calculations on earth: https://www.movable-type.co.uk/scripts/gis-faq-5.1.html
@@ -20,13 +21,13 @@ final class SphereDistanceCalculator extends DistanceCalculator {
   }
 
   double haversineImpl(LatLng p0, LatLng p1) {
-    double dPhi = Math.sqrt(Math.pow(p0.getLatitude() - p1.getLatitude(), 2));
-    double dLam = Math.sqrt(Math.pow(p0.getLongitude() - p1.getLongitude(), 2));
+    double dPhi = distance(p0.getLatitude(), p1.getLatitude());
+    double dLam = distance(p0.getLongitude(), p1.getLongitude());
 
-    double havPhi = Math.pow(Math.sin(Math.toRadians(dPhi/2)),2);
-    double havLam = Math.pow(Math.sin(Math.toRadians(dLam/2)),2);
-    double cPhi0 = Math.cos(Math.toRadians(p0.getLatitude()));
-    double cPhi1 = Math.cos(Math.toRadians(p1.getLatitude()));
+    double havPhi = Math.pow(Math.sin(Math.toRadians(dPhi / 2)), 2);
+    double havLam = Math.pow(Math.sin(Math.toRadians(dLam / 2)), 2);
+    double cPhi0 = Math.cos(p0.getLatitude().toRadians());
+    double cPhi1 = Math.cos(p1.getLatitude().toRadians());
 
     double havTheta = havPhi + (cPhi0 * cPhi1 * havLam);
     double theta = 2 * Math.asin(Math.min(1, Math.sqrt(havTheta)));
@@ -35,15 +36,15 @@ final class SphereDistanceCalculator extends DistanceCalculator {
   }
 
   double relativeGapDist(LatLng p0, LatLng p1, double stepMeters) {
-    double avgLat = (p0.getLatitude() + p1.getLatitude()) / 2;
+    double avgLat = (p0.getLatitude().toDegrees() + p1.getLatitude().toDegrees()) / 2;
 
-    double latDif = Math.pow(p0.getLatitude() - p1.getLatitude(), 2);
-    double lngDif = Math.pow(p0.getLongitude() - p1.getLongitude(), 2);
+    double latDist = distance(p0.getLatitude(), p1.getLatitude());
+    double lngDist = distance(p0.getLongitude(), p1.getLongitude());
 
-    double diff = (latDif + lngDif) == 0 ? Double.MIN_VALUE : (latDif + lngDif); // prevent divide by 0
+    double distance = (latDist + lngDist) == 0 ? Double.MIN_VALUE : (latDist + lngDist); // prevent divide by 0
 
-    double uvLat = latDif / diff;
-    double uvLng = lngDif / diff;
+    double uvLat = latDist / distance;
+    double uvLng = lngDist / distance;
 
     double partLat = uvLat * stepMeters;
     double partLng = uvLng * stepMeters * Math.cos(Math.toRadians(avgLat));
@@ -53,8 +54,8 @@ final class SphereDistanceCalculator extends DistanceCalculator {
 
   // TODO - test
   public LatLng findNextTarget(LatLng p0, LatLng p1, double flatGap) {
-    double vLat = p0.getLatitude() - p1.getLatitude();
-    double vLng = p0.getLongitude() - p1.getLongitude();
+    double vLat = p0.getLatitude().toDegrees() - p1.getLatitude().toDegrees();
+    double vLng = p0.getLongitude().toDegrees() - p1.getLongitude().toDegrees();
     double approxLatLngDist = approxDistance(p0, p1);
     double approxGapDist = relativeGapDist(p0, p1, flatGap);
 
@@ -63,9 +64,9 @@ final class SphereDistanceCalculator extends DistanceCalculator {
     } else {
       double uvLat = ((vLat / approxLatLngDist) * approxGapDist);
       double uvLng = ((vLng / approxLatLngDist) * approxGapDist);
-      return LatLng.newBuilder()
-          .setLatitude(p0.getLatitude() - uvLat)
-          .setLongitude(p0.getLongitude() - uvLng)
+      return LatLng.builder()
+          .latitude(Coordinate.fromDegrees(p0.getLatitude().toDegrees() - uvLat))
+          .longitude(Coordinate.fromDegrees(p0.getLongitude().toDegrees() - uvLng))
           .build();
     }
   }
