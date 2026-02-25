@@ -1,7 +1,8 @@
-- [x] add endpoint provider for portablitity
-    - [ ] handle running from github codespce containers 
+- [ ] decouple from google apis
 - [ ] test server side geocoding service wrapper
 - [ ] fix pathfinding to solution on dead end in stdpathfinder
 - [ ] print more details on screen
 - [ ] make prettier
-- [ ] change logger to lombok logger (@Logger)
+- [ ] add gpx export
+- [ ] handle running from github codespce containers 
+- [ ] better pathfinding
