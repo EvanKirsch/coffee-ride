@@ -20,6 +20,11 @@ public final class LatLng {
   }
 
   @Override
+  public int hashCode() {
+    return latitude.hashCode() * longitude.hashCode();
+  }
+
+  @Override
   public String toString() {
     return "{" + this.latitude.toString() + ", " + this.longitude.toString() + "}";
   }

@@ -1,9 +1,15 @@
 package org.kirsch.model.gcs;
 
-
+/*
+ * Problem: 
+ *   Coordinates can be represented in both degrees and radians. 
+ *   I was often getting confused what unit my double was in.
+ * Solution: 
+ *   Wrap the double in a class and use .toDegrees() and .toRadians()
+ *   to access the double. Stored in degrees because this is more intuitive 
+ */
 public final class Coordinate {
 
-  // value stored in degrees
   private final double degrees;
 
   private Coordinate(double degrees) {
