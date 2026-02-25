@@ -14,7 +14,6 @@ import org.kirsch.service.api.IRoutesApiWrapper;
 import org.kirsch.service.api.ISearchNearbyPlacesApiWrapper;
 import org.kirsch.service.api.RoutesApiWrapper;
 import org.kirsch.service.api.SearchNearbyPlacesApiWrapper;
-import org.kirsch.converter.LatLngConverter;
 import org.kirsch.util.distance.IDistanceCalculator;
 import org.kirsch.util.distance.SphereDistanceCalculatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
