@@ -29,8 +29,8 @@ public class WeightedPlaceGraphFactory implements IPlaceGraphFactory {
     List<Node> nodes = new ArrayList<>();
     for (Place place : places) {
       LatLng latLng = conversionService.convert(place.getLocation(), LatLng.class);
-      double distanceToTarget = distanceCalculator.approxDistance(latLng, target);
-      double distanceToStart = distanceCalculator.approxDistance(latLng, origin);
+      double distanceToTarget = distanceCalculator.approxDistance(latLng, target).toMeters();
+      double distanceToStart = distanceCalculator.approxDistance(latLng, origin).toMeters();
       nodes.add(new Node(place, distanceToTarget, distanceToStart));
     }
     return new WeightedPlaceGraph(nodes);

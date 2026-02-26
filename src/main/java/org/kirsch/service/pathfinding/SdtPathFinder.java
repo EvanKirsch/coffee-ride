@@ -58,12 +58,11 @@ public class SdtPathFinder implements IPathFinder {
     LatLng origin = geocodeApiWrapper.geocode(pathfindingRequest.getOrgAddress());
     LatLng curOrigin = origin;
     LatLng destination = geocodeApiWrapper.geocode(pathfindingRequest.getDstAddress());
-    double stepMeters = Math.max(pathfindingRequest.getStepMeters(), 0.01);
     boolean isDeadEnd = false;
     int i = 0;
     do {
       i++;
-      target = distanceCalculator.findNextTarget(curOrigin, destination, stepMeters);
+      target = distanceCalculator.findNextTarget(curOrigin, destination, pathfindingRequest.getStep());
       List<Place> places = searchPlacesWrapper.searchNearby(curOrigin, target);
       WeightedPlaceGraph graph = graphFactory.createGraph(places, curOrigin, target);
       edgeCalculator.sortNodes(graph);

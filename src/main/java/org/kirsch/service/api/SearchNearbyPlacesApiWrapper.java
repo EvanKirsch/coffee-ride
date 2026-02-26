@@ -86,7 +86,7 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
 
     Circle searchArea = Circle.newBuilder()
         .setCenter(ll)
-        .setRadius(distanceCalculator.approxDistance(origin, destination))
+        .setRadius(distanceCalculator.approxDistance(origin, destination).toMeters())
         .build();
 
     return SearchNearbyRequest.LocationRestriction

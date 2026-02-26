@@ -3,6 +3,7 @@ package org.kirsch.converter;
 import lombok.NonNull;
 import org.kirsch.model.PathfindingRequest;
 import org.kirsch.model.PathfindingRequestStr;
+import org.kirsch.model.gcs.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
@@ -15,12 +16,12 @@ public final class PathfindingRequestConverter implements Converter<PathfindingR
 
   @Override
   public PathfindingRequest convert(@NonNull PathfindingRequestStr source) {
-    double step = convertMilesToMeters(convertStringToDouble(source.getStepMiles()));
+    Length step = Length.fromMiles(convertStringToDouble(source.getStepMiles()));
 
     return PathfindingRequest.builder()
         .orgAddress(source.getOrigin())
         .dstAddress(source.getDestination())
-        .stepMeters(step)
+        .step(step)
         .build();
   }
 
@@ -37,10 +38,6 @@ public final class PathfindingRequestConverter implements Converter<PathfindingR
       d = 0;
     }
     return d;
-  }
-
-  private double convertMilesToMeters(double miles) {
-    return miles * 1609.34;
   }
 
 }

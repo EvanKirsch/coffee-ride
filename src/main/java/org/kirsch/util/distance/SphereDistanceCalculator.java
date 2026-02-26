@@ -2,6 +2,7 @@ package org.kirsch.util.distance;
 
 import org.kirsch.model.gcs.Coordinate;
 import org.kirsch.model.gcs.LatLng;
+import org.kirsch.model.gcs.Length;
 import org.springframework.stereotype.Component;
 
 // notes on distance calculations on earth: https://www.movable-type.co.uk/scripts/gis-faq-5.1.html
@@ -16,11 +17,11 @@ final class SphereDistanceCalculator extends DistanceCalculator {
   }
 
   @Override
-  public double approxDistance(LatLng p0, LatLng p1) {
+  public Length approxDistance(LatLng p0, LatLng p1) {
     return this.haversineImpl(p0, p1);
   }
 
-  double haversineImpl(LatLng p0, LatLng p1) {
+  Length haversineImpl(LatLng p0, LatLng p1) {
     double dPhi = distance(p0.getLatitude(), p1.getLatitude());
     double dLam = distance(p0.getLongitude(), p1.getLongitude());
 
@@ -32,10 +33,10 @@ final class SphereDistanceCalculator extends DistanceCalculator {
     double havTheta = havPhi + (cPhi0 * cPhi1 * havLam);
     double theta = 2 * Math.asin(Math.min(1, Math.sqrt(havTheta)));
 
-    return theta * EARTH_RADIUS_METERS;
+    return Length.fromMeters(theta * EARTH_RADIUS_METERS);
   }
 
-  double relativeGapDist(LatLng p0, LatLng p1, double stepMeters) {
+  Length relativeGapDist(LatLng p0, LatLng p1, Length step) {
     double avgLat = (p0.getLatitude().toDegrees() + p1.getLatitude().toDegrees()) / 2;
 
     double latDist = distance(p0.getLatitude(), p1.getLatitude());
@@ -46,18 +47,18 @@ final class SphereDistanceCalculator extends DistanceCalculator {
     double uvLat = latDist / distance;
     double uvLng = lngDist / distance;
 
-    double partLat = uvLat * stepMeters;
-    double partLng = uvLng * stepMeters * Math.cos(Math.toRadians(avgLat));
+    double partLat = uvLat * step.toMeters();
+    double partLng = uvLng * step.toMeters() * Math.cos(Math.toRadians(avgLat));
 
-    return Math.abs(partLat) + Math.abs(partLng);
+    return Length.fromMeters(Math.abs(partLat) + Math.abs(partLng));
   }
 
   // TODO - test
-  public LatLng findNextTarget(LatLng p0, LatLng p1, double flatGap) {
+  public LatLng findNextTarget(LatLng p0, LatLng p1, Length flatGap) {
     double vLat = p0.getLatitude().toDegrees() - p1.getLatitude().toDegrees();
     double vLng = p0.getLongitude().toDegrees() - p1.getLongitude().toDegrees();
-    double approxLatLngDist = approxDistance(p0, p1);
-    double approxGapDist = relativeGapDist(p0, p1, flatGap);
+    double approxLatLngDist = approxDistance(p0, p1).toMeters();
+    double approxGapDist = relativeGapDist(p0, p1, flatGap).toMeters();
 
     if (approxGapDist >= approxLatLngDist) {
       return p1;

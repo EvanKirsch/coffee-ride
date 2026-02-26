@@ -1,5 +1,6 @@
 package org.kirsch.util.distance
 
+import org.kirsch.model.gcs.Length
 import org.kirsch.SpecDec
 
 class SphereDistanceCalculatorSpec extends SpecDec {
@@ -13,7 +14,7 @@ class SphereDistanceCalculatorSpec extends SpecDec {
 
     def "ApproxDistance"() {
         when:
-        def found = sdc.approxDistance(p0, p1)
+        def found = sdc.approxDistance(p0, p1).toMeters()
 
         then:
         IsWithinError(found, expected, 0.01)
@@ -31,7 +32,7 @@ class SphereDistanceCalculatorSpec extends SpecDec {
 
     def "HaversineImpl"() {
         when:
-        def found = sdc.haversineImpl(p0, p1)
+        def found = sdc.haversineImpl(p0, p1).toMeters()
 
         then:
         IsWithinError(found, expected, 0.03)
@@ -49,7 +50,7 @@ class SphereDistanceCalculatorSpec extends SpecDec {
 
     def "RelativeGapDist"() {
         when:
-        def found = sdc.relativeGapDist(p0, p1, 1000)
+        def found = sdc.relativeGapDist(p0, p1, Length.fromMeters(1000)).toMeters()
 
         then:
         IsWithinError(found, expected, 0.03)
@@ -82,7 +83,7 @@ class SphereDistanceCalculatorSpec extends SpecDec {
 
     def "FindNextTarget"() {
         when:
-        def found = sdc.findNextTarget(p0, p1, 10000)
+        def found = sdc.findNextTarget(p0, p1, Length.fromMeters(10000))
 
         then:
         found == expected

@@ -1,5 +1,7 @@
 package org.kirsch.model;
 
+import org.kirsch.model.gcs.Length;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,6 +11,6 @@ public final class PathfindingRequest {
 
   private final String orgAddress;
   private final String dstAddress;
-  private final double stepMeters;
+  private final Length step;
 
 }

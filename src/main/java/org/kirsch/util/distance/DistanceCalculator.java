@@ -2,14 +2,14 @@ package org.kirsch.util.distance;
 
 import org.kirsch.model.gcs.Coordinate;
 import org.kirsch.model.gcs.LatLng;
+import org.kirsch.model.gcs.Length;
 
 abstract class DistanceCalculator implements IDistanceCalculator {
 
-
   abstract DistanceCalculator build();
-  public abstract double approxDistance(LatLng p0, LatLng p1);
-  abstract double relativeGapDist(LatLng p0, LatLng p1, double flatGap);
-  public abstract LatLng findNextTarget(LatLng p0, LatLng p1, double flatGap);
+  public abstract Length approxDistance(LatLng p0, LatLng p1);
+  abstract Length relativeGapDist(LatLng p0, LatLng p1, Length flatGap);
+  public abstract LatLng findNextTarget(LatLng p0, LatLng p1, Length flatGap);
 
   public LatLng getCenter(LatLng p0, LatLng p1) {
     double latMid = (p0.getLatitude().toDegrees() + p1.getLatitude().toDegrees()) / 2;
