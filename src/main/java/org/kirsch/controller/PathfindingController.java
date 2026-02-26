@@ -1,11 +1,15 @@
 package org.kirsch.controller;
 
+import java.util.List;
+
 import org.kirsch.model.PathfindingRequest;
 import org.kirsch.model.PathfindingRequestStr;
 import org.kirsch.model.PathfindingResponse;
 import org.kirsch.model.RouteDetails;
 import org.kirsch.service.pathfinding.IPathFinder;
 import org.kirsch.service.pathfinding.SdtPathFinder;
+import org.kirsch.validation.IValidator;
+import org.kirsch.validation.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,20 +24,30 @@ public class PathfindingController implements IPathfindingController {
 
   private final IPathFinder pathFinder;
   private final ConversionService conversionService;
+  private final ValidationService validationService;
 
   @Autowired
-  public PathfindingController(SdtPathFinder pathFinder, ConversionService conversionService) {
+  public PathfindingController(SdtPathFinder pathFinder, ConversionService conversionService, ValidationService validationService) {
     this.pathFinder = pathFinder;
     this.conversionService = conversionService;
+    this.validationService = validationService;
   }
 
   @PutMapping
   @ResponseBody
   @Override
   public PathfindingResponse findRoute(@RequestBody PathfindingRequestStr requestStr) {
-    PathfindingRequest request = conversionService.convert(requestStr, PathfindingRequest.class);
-    RouteDetails route = pathFinder.buildRoute(request);
-    PathfindingResponse response = conversionService.convert(route, PathfindingResponse.class);
+    List<Exception> errors = validationService.validate(requestStr);
+    PathfindingResponse response;
+    if (errors.isEmpty()) {
+      PathfindingRequest request = conversionService.convert(requestStr, PathfindingRequest.class);
+      RouteDetails route = pathFinder.buildRoute(request);
+      response = conversionService.convert(route, PathfindingResponse.class);
+
+    } else {
+      response = null; // TODO - handle errors
+
+    }
     return response;
   }
 
