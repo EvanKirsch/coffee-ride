@@ -1,8 +1,25 @@
-- [ ] decouple from google apis
-- [ ] test server side geocoding service wrapper
-- [ ] fix pathfinding to solution on dead end in stdpathfinder
+# TODO 
+
+
+## Features
+
+---
+- [ ] validator service
 - [ ] print more details on screen
 - [ ] make prettier
 - [ ] add gpx export
-- [ ] handle running from github codespce containers 
+
+
+## Known Issues
+
+---
+- [ ] fix pathfinding to solution on dead end in stdpathfinder
 - [ ] better pathfinding
+  - [ ] min end/max start results in overshooting target
+
+
+## Tech Debt
+
+---
+- [ ] decouple from google apis
+- [ ] test server side geocoding service wrapper
