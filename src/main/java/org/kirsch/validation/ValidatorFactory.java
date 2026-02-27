@@ -6,10 +6,8 @@ import org.kirsch.model.PathfindingRequestStr;
 import org.kirsch.validation.validator.PathFindingRequestStrValidator;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.java.Log;
 
 @Component
-@Log
 public class ValidatorFactory implements IValidatorFactory {
 
   // TODO - abstract
