@@ -36,7 +36,8 @@ public class PathfindingController implements IPathfindingController {
   @PutMapping
   @ResponseBody
   @Override
-  public PathfindingResponse findRoute(@RequestBody PathfindingRequestStr requestStr) {
+  public PathfindingResponse findRoute(@RequestBody PathfindingRequestStr requestStr)
+      throws Exception {
     List<Exception> errors = validationService.validate(requestStr, PathfindingRequestStr.class);
     PathfindingResponse response;
     if (errors.isEmpty()) {
@@ -45,9 +46,10 @@ public class PathfindingController implements IPathfindingController {
       response = conversionService.convert(route, PathfindingResponse.class);
 
     } else {
-      response = null; // TODO - handle errors
+      throw errors.get(0);
 
     }
+
     return response;
   }
 
