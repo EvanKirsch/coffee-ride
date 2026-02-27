@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface IValidationService {
 
-  <T> List<Exception> validate(T t);
+  <T> List<Exception> validate(T t,  Class<T> tClass);
     
 }

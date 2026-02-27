@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kirsch.model.PathfindingRequestStr;
-import org.kirsch.validation.IValidator;
+import org.kirsch.validation.AbstractValidator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PathFindingRequestStrValidator implements IValidator<PathfindingRequestStr> {
+public class PathFindingRequestStrValidator extends AbstractValidator<PathfindingRequestStr> {
 
   @Override
   public List<Exception> validate(PathfindingRequestStr obj) {
@@ -19,8 +19,8 @@ public class PathFindingRequestStrValidator implements IValidator<PathfindingReq
     return exceptions;
   }
 
-  private boolean isNullEmpty(String s) { 
-    return s == null || s.isEmpty() || s.isBlank();
+  private boolean isNullEmpty(String s) {
+    return s == null || s.isBlank();
   }
-    
+
 }

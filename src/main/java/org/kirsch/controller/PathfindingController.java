@@ -8,7 +8,7 @@ import org.kirsch.model.PathfindingResponse;
 import org.kirsch.model.RouteDetails;
 import org.kirsch.service.pathfinding.IPathFinder;
 import org.kirsch.service.pathfinding.SdtPathFinder;
-import org.kirsch.validation.IValidator;
+import org.kirsch.validation.IValidationService;
 import org.kirsch.validation.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -24,7 +24,7 @@ public class PathfindingController implements IPathfindingController {
 
   private final IPathFinder pathFinder;
   private final ConversionService conversionService;
-  private final ValidationService validationService;
+  private final IValidationService validationService;
 
   @Autowired
   public PathfindingController(SdtPathFinder pathFinder, ConversionService conversionService, ValidationService validationService) {
@@ -37,7 +37,7 @@ public class PathfindingController implements IPathfindingController {
   @ResponseBody
   @Override
   public PathfindingResponse findRoute(@RequestBody PathfindingRequestStr requestStr) {
-    List<Exception> errors = validationService.validate(requestStr);
+    List<Exception> errors = validationService.validate(requestStr, PathfindingRequestStr.class);
     PathfindingResponse response;
     if (errors.isEmpty()) {
       PathfindingRequest request = conversionService.convert(requestStr, PathfindingRequest.class);

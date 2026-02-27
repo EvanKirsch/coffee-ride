@@ -15,8 +15,8 @@ public class ValidationService implements IValidationService {
     this.validatorFactory = validatorFactory;
   }
 
-  public <T> List<Exception> validate(T t) {
-    IValidator<T> validator = validatorFactory.build(t);
+  public <T> List<Exception> validate(T t, Class<T> tClass) {
+    IValidator<T> validator = validatorFactory.build(tClass);
     return validator.validate(t);
   }
     
