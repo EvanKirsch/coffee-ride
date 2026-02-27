@@ -5,6 +5,6 @@ import org.kirsch.model.PathfindingResponse;
 
 public interface IPathfindingController {
 
-  PathfindingResponse findRoute(PathfindingRequestStr pathfindingRequest);
+  PathfindingResponse findRoute(PathfindingRequestStr pathfindingRequest) throws Exception;
 
 }
