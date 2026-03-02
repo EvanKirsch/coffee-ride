@@ -2,7 +2,6 @@ package io.coffeeride.service.api;
 
 import com.google.api.gax.rpc.FixedHeaderProvider;
 import com.google.api.gax.rpc.HeaderProvider;
-import com.google.maps.places.v1.Place;
 import com.google.maps.routing.v2.ComputeRoutesRequest;
 import com.google.maps.routing.v2.PolylineQuality;
 import com.google.maps.routing.v2.Route;
@@ -11,15 +10,16 @@ import com.google.maps.routing.v2.RoutesClient;
 import com.google.maps.routing.v2.RoutesSettings;
 import com.google.maps.routing.v2.RoutingPreference;
 import com.google.maps.routing.v2.Waypoint;
+import io.coffeeride.adaptors.PlaceAdaptor;
+import io.coffeeride.model.gcs.LatLng;
+import io.coffeeride.util.ApplicationProperties;
 import java.util.ArrayList;
 import java.util.List;
-import io.coffeeride.util.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import io.coffeeride.model.gcs.LatLng;
 
 @Service
 public class RoutesApiWrapper implements IRoutesApiWrapper {
@@ -36,7 +36,8 @@ public class RoutesApiWrapper implements IRoutesApiWrapper {
   }
 
   @Override
-  public List<Route> computeRoute(LatLng origin, LatLng destination, List<Place> intermediates) {
+  public List<Route> computeRoute(LatLng origin, LatLng destination,
+      List<PlaceAdaptor> intermediates) {
     List<Route> responseRoutes = new ArrayList<>();
     String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
 

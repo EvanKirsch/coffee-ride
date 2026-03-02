@@ -1,7 +1,7 @@
 package io.coffeeride.model;
 
-import com.google.maps.places.v1.Place;
 import com.google.type.LatLng;
+import io.coffeeride.adaptors.PlaceAdaptor;
 import lombok.Data;
 
 @Data
@@ -13,11 +13,11 @@ public final class CoffeeRidePlace {
   private final double lng;
   private final String name;
 
-  public CoffeeRidePlace(Place place) {
-    this.displayName = place.getDisplayName().getText();
-    this.address = place.getFormattedAddress();
-    this.lat = place.getLocation().getLatitude();
-    this.lng = place.getLocation().getLongitude();
+  public CoffeeRidePlace(PlaceAdaptor place) {
+    this.displayName = place.getDisplayName();
+    this.address = place.getAddress();
+    this.lat = place.getLatitude();
+    this.lng = place.getLongitude();
     this.name = place.getName();
   }
 

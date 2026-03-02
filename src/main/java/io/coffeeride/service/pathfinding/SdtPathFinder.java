@@ -1,13 +1,12 @@
 package io.coffeeride.service.pathfinding;
 
-import com.google.maps.places.v1.Place;
 import com.google.maps.routing.v2.Route;
-import java.util.ArrayList;
-import java.util.List;
-import io.coffeeride.model.RouteDetails;
+import io.coffeeride.adaptors.PlaceAdaptor;
 import io.coffeeride.model.Node;
 import io.coffeeride.model.PathfindingRequest;
+import io.coffeeride.model.RouteDetails;
 import io.coffeeride.model.WeightedPlaceGraph;
+import io.coffeeride.model.gcs.LatLng;
 import io.coffeeride.service.api.GeocodeApiWrapper;
 import io.coffeeride.service.api.IGeocodeApiWrapper;
 import io.coffeeride.service.api.IRoutesApiWrapper;
@@ -16,10 +15,11 @@ import io.coffeeride.service.api.RoutesApiWrapper;
 import io.coffeeride.service.api.SearchNearbyPlacesApiWrapper;
 import io.coffeeride.util.distance.IDistanceCalculator;
 import io.coffeeride.util.distance.SphereDistanceCalculatorFactory;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import io.coffeeride.model.gcs.LatLng;
 
 @Service
 public class SdtPathFinder implements IPathFinder {
@@ -40,7 +40,7 @@ public class SdtPathFinder implements IPathFinder {
       GeocodeApiWrapper geocodeApiWrapper,
       SphereDistanceCalculatorFactory dcFactory,
       ConversionService conversionService
-      ) {
+  ) {
     this.routesApiWrapper = routesApiWrapper;
     this.searchPlacesWrapper = searchPlacesWrapper;
     this.edgeCalculator = edgeCalculator;
@@ -53,7 +53,7 @@ public class SdtPathFinder implements IPathFinder {
   @Override
   public RouteDetails buildRoute(PathfindingRequest pathfindingRequest) {
     LatLng target;
-    List<Place> intermediates = new ArrayList<>();
+    List<PlaceAdaptor> intermediates = new ArrayList<>();
 
     LatLng origin = geocodeApiWrapper.geocode(pathfindingRequest.getOrgAddress());
     LatLng curOrigin = origin;
@@ -62,8 +62,9 @@ public class SdtPathFinder implements IPathFinder {
     int i = 0;
     do {
       i++;
-      target = distanceCalculator.findNextTarget(curOrigin, destination, pathfindingRequest.getStep());
-      List<Place> places = searchPlacesWrapper.searchNearby(curOrigin, target);
+      target = distanceCalculator.findNextTarget(curOrigin, destination,
+          pathfindingRequest.getStep());
+      List<PlaceAdaptor> places = searchPlacesWrapper.searchNearby(curOrigin, target);
       WeightedPlaceGraph graph = graphFactory.createGraph(places, curOrigin, target);
       edgeCalculator.sortNodes(graph);
       List<Node> nodes = graph.getNodes();

@@ -8,12 +8,14 @@ import com.google.maps.places.v1.PlacesClient;
 import com.google.maps.places.v1.PlacesSettings;
 import com.google.maps.places.v1.SearchNearbyRequest;
 import com.google.maps.places.v1.SearchNearbyResponse;
-import java.util.ArrayList;
-import java.util.List;
+import io.coffeeride.adaptors.GooglePlaceAdaptor;
+import io.coffeeride.adaptors.PlaceAdaptor;
 import io.coffeeride.model.gcs.LatLng;
 import io.coffeeride.util.ApplicationProperties;
 import io.coffeeride.util.distance.IDistanceCalculator;
 import io.coffeeride.util.distance.SphereDistanceCalculatorFactory;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,8 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
   }
 
   @Override
-  public List<Place> searchNearby(LatLng origin, LatLng destination) {
-    List<Place> places = new ArrayList<>();
+  public List<PlaceAdaptor> searchNearby(LatLng origin, LatLng destination) {
+    List<PlaceAdaptor> places = new ArrayList<>();
 
     try {
 
@@ -64,7 +66,8 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
         SearchNearbyResponse searchNearbyResponse = placesClient.searchNearby(request);
 
         if (searchNearbyResponse.isInitialized()) {
-          places = searchNearbyResponse.getPlacesList();
+          List<Place> googlePlaces = searchNearbyResponse.getPlacesList();
+          googlePlaces.forEach(elt -> places.add(new GooglePlaceAdaptor(elt)));
         } else {
           log.warn("No routes found.");
         }

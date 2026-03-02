@@ -1,12 +1,12 @@
 package io.coffeeride.service.pathfinding;
 
-import com.google.maps.places.v1.Place;
-import java.util.List;
+import io.coffeeride.adaptors.PlaceAdaptor;
 import io.coffeeride.model.WeightedPlaceGraph;
 import io.coffeeride.model.gcs.LatLng;
+import java.util.List;
 
 public interface IPlaceGraphFactory {
 
-  WeightedPlaceGraph createGraph(List<Place> places, LatLng origin, LatLng target);
+  WeightedPlaceGraph createGraph(List<PlaceAdaptor> places, LatLng origin, LatLng target);
 
 }

@@ -1,9 +1,9 @@
 package io.coffeeride.util;
 
-import io.coffeeride.model.CoffeeRidePlace;
-import java.util.List;
+import io.coffeeride.adaptors.PlaceAdaptor;
 import io.coffeeride.model.Node;
 import io.coffeeride.model.WeightedPlaceGraph;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +24,8 @@ public final class DebugUtil {
     return debugUtil;
   }
 
-  public void printPlaces(List<CoffeeRidePlace> places) {
-    for (CoffeeRidePlace place : places) {
+  public void printPlaces(List<PlaceAdaptor> places) {
+    for (PlaceAdaptor place : places) {
       log.info("{}, {}",
           place.getDisplayName(),
           place.getAddress()
@@ -38,8 +38,8 @@ public final class DebugUtil {
       log.info("{}, {}, {}, {}",
           node.getDistanceToTerminus(),
           node.getDistanceToStart(),
-          node.getPlace().getDisplayName().getText(),
-          node.getPlace().getFormattedAddress()
+          node.getPlace().getDisplayName(),
+          node.getPlace().getAddress()
       );
     }
   }

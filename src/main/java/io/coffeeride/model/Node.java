@@ -1,6 +1,6 @@
 package io.coffeeride.model;
 
-import com.google.maps.places.v1.Place;
+import io.coffeeride.adaptors.PlaceAdaptor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 public final class Node {
 
-  private final Place place;
+  private final PlaceAdaptor place;
   private final double distanceToTerminus;
   private final double distanceToStart;
 
