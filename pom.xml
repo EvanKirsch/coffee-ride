@@ -56,6 +56,13 @@
       <version>2.2.0</version>
     </dependency>
 
+    <!-- GPX exporter -->
+    <dependency>
+      <groupId>io.jenetics</groupId>
+      <artifactId>jpx</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
     <!-- Unit test -->
     <dependency>
       <groupId>org.spockframework</groupId>
