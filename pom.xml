@@ -11,10 +11,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>org.kirsch</groupId>
-  <artifactId>coffeeRide</artifactId>
+  <groupId>io.coffeeride</groupId>
+  <artifactId>coffee-ride</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>coffeeRide</name>
+  <name>Coffee Ride</name>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>

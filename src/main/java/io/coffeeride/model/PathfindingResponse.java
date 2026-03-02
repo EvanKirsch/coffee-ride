@@ -1,0 +1,14 @@
+package io.coffeeride.model;
+
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public final class PathfindingResponse {
+
+  private List<CoffeeRideLeg> legs;
+  private String encodedPolyline;
+
+}
