@@ -1,7 +1,7 @@
 package io.coffeeride.service.pathfinding;
 
-import com.google.maps.routing.v2.Route;
 import io.coffeeride.adaptors.PlaceAdaptor;
+import io.coffeeride.adaptors.RouteAdaptor;
 import io.coffeeride.model.Node;
 import io.coffeeride.model.PathfindingRequest;
 import io.coffeeride.model.RouteDetails;
@@ -75,7 +75,7 @@ public class SdtPathFinder implements IPathFinder {
         isDeadEnd = true;
       }
     } while (target != destination && !isDeadEnd && i < 20);
-    List<Route> routes = routesApiWrapper.computeRoute(origin, destination, intermediates);
+    List<RouteAdaptor> routes = routesApiWrapper.computeRoute(origin, destination, intermediates);
     return new RouteDetails(routes, intermediates);
   }
 

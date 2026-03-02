@@ -1,8 +1,8 @@
 package io.coffeeride.converter;
 
-import com.google.maps.routing.v2.Route;
-import com.google.maps.routing.v2.RouteLeg;
+import io.coffeeride.adaptors.LegAdaptor;
 import io.coffeeride.adaptors.PlaceAdaptor;
+import io.coffeeride.adaptors.RouteAdaptor;
 import io.coffeeride.model.CoffeeRideLeg;
 import io.coffeeride.model.CoffeeRidePlace;
 import io.coffeeride.model.PathfindingResponse;
@@ -18,13 +18,13 @@ public final class PathfindingResponseConverter implements
 
   @Override
   public PathfindingResponse convert(RouteDetails routeDetails) {
-    Route route = routeDetails.getRouteList().get(0);
-    String encodedPolyline = route.getPolyline().getEncodedPolyline();
+    RouteAdaptor route = routeDetails.getRouteList().get(0);
+    String encodedPolyline = route.getEncodedPolyline();
 
     List<CoffeeRideLeg> legs = new ArrayList<>();
     for (int i = 0; i < route.getLegsList().size() && i < routeDetails.getIntermediates().size();
         i++) {
-      RouteLeg leg = route.getLegsList().get(i);
+      LegAdaptor leg = route.getLegsList().get(i);
       PlaceAdaptor place = routeDetails.getIntermediates().get(i);
       legs.add(convertLeg(leg, place));
     }
@@ -32,11 +32,11 @@ public final class PathfindingResponseConverter implements
     return new PathfindingResponse(legs, encodedPolyline);
   }
 
-  private CoffeeRideLeg convertLeg(RouteLeg leg, PlaceAdaptor place) {
+  private CoffeeRideLeg convertLeg(LegAdaptor leg, PlaceAdaptor place) {
     CoffeeRidePlace origin = new CoffeeRidePlace(leg.getStartLocation().getLatLng());
     CoffeeRidePlace destination = new CoffeeRidePlace(place);
 
-    return new CoffeeRideLeg(origin, destination, leg.getPolyline().getEncodedPolyline());
+    return new CoffeeRideLeg(origin, destination, leg.getEncodedPolyline());
   }
 
 }

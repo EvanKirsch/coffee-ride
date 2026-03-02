@@ -37,6 +37,7 @@ public final class GooglePlaceAdaptor implements PlaceAdaptor {
     return place.getName();
   }
 
+  @Override
   public LatLng getLocation() {
     return LatLng.builder()
         .latitude(Coordinate.fromDegrees(place.getLocation().getLatitude()))

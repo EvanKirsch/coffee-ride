@@ -10,7 +10,9 @@ import com.google.maps.routing.v2.RoutesClient;
 import com.google.maps.routing.v2.RoutesSettings;
 import com.google.maps.routing.v2.RoutingPreference;
 import com.google.maps.routing.v2.Waypoint;
+import io.coffeeride.adaptors.GoogleRouteAdaptor;
 import io.coffeeride.adaptors.PlaceAdaptor;
+import io.coffeeride.adaptors.RouteAdaptor;
 import io.coffeeride.model.gcs.LatLng;
 import io.coffeeride.util.ApplicationProperties;
 import java.util.ArrayList;
@@ -36,9 +38,9 @@ public class RoutesApiWrapper implements IRoutesApiWrapper {
   }
 
   @Override
-  public List<Route> computeRoute(LatLng origin, LatLng destination,
+  public List<RouteAdaptor> computeRoute(LatLng origin, LatLng destination,
       List<PlaceAdaptor> intermediates) {
-    List<Route> responseRoutes = new ArrayList<>();
+    List<RouteAdaptor> routes = new ArrayList<>();
     String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
 
     try {
@@ -68,13 +70,14 @@ public class RoutesApiWrapper implements IRoutesApiWrapper {
             .setTravelMode(RouteTravelMode.BICYCLE)
             .build();
 
-        responseRoutes = routesClient.computeRoutes(request).getRoutesList();
+        List<Route> responseRoutes = routesClient.computeRoutes(request).getRoutesList();
+        responseRoutes.forEach(elt -> routes.add(new GoogleRouteAdaptor(elt)));
 
       }
     } catch (Exception e) {
       log.error(e.getMessage());
     }
-    return responseRoutes;
+    return routes;
   }
 
 }
