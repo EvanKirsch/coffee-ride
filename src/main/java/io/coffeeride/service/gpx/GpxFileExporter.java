@@ -1,6 +1,7 @@
 package io.coffeeride.service.gpx;
 
-import com.google.maps.routing.v2.Route;
+import io.coffeeride.adaptors.RouteAdaptor;
+import io.jenetics.jpx.GPX;
 import io.jenetics.jpx.XMLProvider;
 import java.io.IOException;
 import java.util.List;
@@ -10,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
-import io.jenetics.jpx.GPX;
 
 @Service
 public class GpxFileExporter implements IGpxFileExporter {
@@ -18,21 +18,21 @@ public class GpxFileExporter implements IGpxFileExporter {
   private static final Logger log = LoggerFactory.getLogger(GpxFileExporter.class);
 
   // todo - add adaptor
-  public Document buildDocument(List<Route> routes) {
+  public Document buildDocument(List<RouteAdaptor> routes) {
     final GPX gpx = GPX.builder()
-      .addRoute(gpxRoute ->
-        routes.forEach(route ->
-          route.getLegsList().forEach(leg ->
-            leg.getStepsList().forEach(step ->
-              gpxRoute.addPoint(p -> p
-                .lat(step.getStartLocation().getLatLng().getLatitude())
-                .lon(step.getStartLocation().getLatLng().getLongitude())
-                .build()
-              )
+        .addRoute(gpxRoute ->
+            routes.forEach(route ->
+                route.getLegsList().forEach(leg ->
+                    leg.getStepsList().forEach(step ->
+                        gpxRoute.addPoint(p -> p
+                            .lat(step.getLatitude().toDegrees())
+                            .lon(step.getLongitude().toDegrees())
+                            .build()
+                        )
+                    )
+                )
             )
-          )
-        )
-      ).build();
+        ).build();
 
     return this.writeGpxToDoc(gpx);
   }

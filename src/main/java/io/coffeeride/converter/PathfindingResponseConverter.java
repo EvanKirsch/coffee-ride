@@ -33,7 +33,7 @@ public final class PathfindingResponseConverter implements
   }
 
   private CoffeeRideLeg convertLeg(LegAdaptor leg, PlaceAdaptor place) {
-    CoffeeRidePlace origin = new CoffeeRidePlace(leg.getStartLocation().getLatLng());
+    CoffeeRidePlace origin = new CoffeeRidePlace(leg.getStartLocation());
     CoffeeRidePlace destination = new CoffeeRidePlace(place);
 
     return new CoffeeRideLeg(origin, destination, leg.getEncodedPolyline());

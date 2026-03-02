@@ -1,12 +1,15 @@
 package io.coffeeride.adaptors;
 
-import com.google.maps.routing.v2.Location;
+import io.coffeeride.model.gcs.LatLng;
+import java.util.List;
 
 public interface LegAdaptor {
 
   // todo - remove location
-  Location getStartLocation();
+  PlaceAdaptor getStartLocation();
 
   String getEncodedPolyline();
+
+  List<LatLng> getStepsList();
 
 }

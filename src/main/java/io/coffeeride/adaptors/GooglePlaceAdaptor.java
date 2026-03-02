@@ -12,6 +12,12 @@ public final class GooglePlaceAdaptor implements PlaceAdaptor {
     this.place = place;
   }
 
+  public GooglePlaceAdaptor(com.google.type.LatLng latLng) {
+    this.place = Place.newBuilder()
+        .setLocation(latLng)
+        .build();
+  }
+
   @Override
   public String getDisplayName() {
     return place.getDisplayName().getText();
