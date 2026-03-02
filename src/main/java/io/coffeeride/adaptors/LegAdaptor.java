@@ -5,7 +5,6 @@ import java.util.List;
 
 public interface LegAdaptor {
 
-  // todo - remove location
   PlaceAdaptor getStartLocation();
 
   String getEncodedPolyline();
