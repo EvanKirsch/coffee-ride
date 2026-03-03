@@ -1,4 +1,5 @@
 import { MapRenderer } from "../map/mapRenderer"
+import { GpxExportButton } from "../gpx/gpxExportButton"
 
 export class PathfindingResponseRenderer {
 
@@ -10,7 +11,17 @@ export class PathfindingResponseRenderer {
     const data: PathfindingResponse = await response.json();
     this.renderMarkers(data.legs);
     this.renderPolyline(data.encodedPolyline);
-    this.renderRouteDetails(data.legs);
+    const elt = this.renderRouteDetails(data.legs);
+    this.addExportToGpxButton(elt, data.legs);
+  }
+
+  private addExportToGpxButton(parent : HTMLElement, legs : CoffeeRideLeg[]) {
+    let steps : LatLng[] = []
+    legs.forEach(leg => {
+      steps = steps.concat(leg.stepsList)
+    })
+    const button = (new GpxExportButton).buildGpxExportButton(steps);
+    parent.appendChild(button);
   }
 
   private async renderMarkers(legs : CoffeeRideLeg[])  {
@@ -49,7 +60,7 @@ export class PathfindingResponseRenderer {
     PathfindingResponseRenderer.polyline.setMap(MapRenderer.map);
   }
 
-  private renderRouteDetails(legs : CoffeeRideLeg[]) {
+  private renderRouteDetails(legs : CoffeeRideLeg[]) : HTMLElement {
     const routeDetails = document.getElementById("route-details");
     if (!!routeDetails) {
       routeDetails.classList.add("on");
@@ -64,6 +75,7 @@ export class PathfindingResponseRenderer {
       })
       routeDetails.appendChild(routeDetailsList);
     }
+    return routeDetails || document.createElement("div");
   }
 
   private clearResponse() {

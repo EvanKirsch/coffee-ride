@@ -36,7 +36,7 @@ public final class PathfindingResponseConverter implements
     CoffeeRidePlace origin = new CoffeeRidePlace(leg.getStartLocation());
     CoffeeRidePlace destination = new CoffeeRidePlace(place);
 
-    return new CoffeeRideLeg(origin, destination, leg.getEncodedPolyline());
+    return new CoffeeRideLeg(origin, destination, leg.getStepsList(), leg.getEncodedPolyline());
   }
 
 }
