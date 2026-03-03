@@ -19,14 +19,22 @@ export class GpxExportButton {
   }
 
   private addGpxExportSubmitEvent(elt : HTMLElement, steps : LatLng[]) {
-    console.log(steps);
     elt.addEventListener("click", function(e) {
       e.preventDefault();
       fetch(EndpointFactory.getAppServerBaseUrl() + "gpx",{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(steps)
-      })
+      }).then(response => response.blob())
+        .then(blob => {
+           const url = window.URL.createObjectURL(blob);
+           const a = document.createElement('a');
+           a.href = url;
+           a.download = "coffee-ride-route.gpx";
+           document.body.appendChild(a);
+           a.click();
+           a.remove();
+       })
     })
   }
 

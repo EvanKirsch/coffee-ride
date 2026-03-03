@@ -31,10 +31,10 @@ public class GpxFileExporter implements IGpxFileExporter {
   }
 
   private String writeGpxToDoc(GPX gpx) {
-    String filename = UUID.randomUUID().toString();
+    String filename = "tmp/" + UUID.randomUUID() + ".gpx";
 
     try {
-      GPX.write(gpx, Path.of("tmp/" + filename + ".gpx")); // todo - bad
+      GPX.write(gpx, Path.of(filename)); // todo - bad
 
     } catch (IOException e) {
       log.error("Failed to Create GPX doc {}", e.getMessage());
