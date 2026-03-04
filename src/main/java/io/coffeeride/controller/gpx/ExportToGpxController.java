@@ -42,10 +42,10 @@ public class ExportToGpxController implements IExportToGpxController {
     Path path = Paths.get(file.getAbsolutePath());
 
     HttpHeaders header = new HttpHeaders();
-    header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
-    header.add("Cache-Control", "no-cache, no-store, must-revalidate");
-    header.add("Pragma", "no-cache");
-    header.add("Expires", "0");
+    header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename); // TODO - filepath should be stripped
+    header.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
+    header.add(HttpHeaders.PRAGMA, "no-cache");
+    header.add(HttpHeaders.EXPIRES, "0");
 
     ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
 
