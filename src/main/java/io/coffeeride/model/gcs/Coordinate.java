@@ -1,8 +1,8 @@
 package io.coffeeride.model.gcs;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
 /*
  * Problem: 
@@ -12,8 +12,6 @@ import lombok.Data;
  *   Wrap the double in a class and use .toDegrees() and .toRadians()
  *   to access the double. Stored in degrees because this is more intuitive 
  */
-@Data    // provides getter/setter for serialization.
-         // This would probably be better done by overriding serializable methods
 public final class Coordinate {
 
   private final double degrees;
@@ -25,6 +23,11 @@ public final class Coordinate {
   @JsonCreator
   public Coordinate(@JsonProperty("degrees") Double degrees) {
     this.degrees = degrees;
+  }
+
+  @JsonGetter
+  public Double getDegrees(){
+    return this.degrees;
   }
 
   public double toDegrees() {
