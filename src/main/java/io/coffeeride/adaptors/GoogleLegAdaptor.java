@@ -23,6 +23,8 @@ public final class GoogleLegAdaptor implements LegAdaptor {
     return leg.getPolyline().getEncodedPolyline();
   }
 
+  // TODO - this probably has issues
+  @Override
   public List<LatLng> getStepsList() {
     return leg.getStepsList().stream().map(elt ->
         new LatLng(

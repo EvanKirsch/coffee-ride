@@ -1,4 +1,4 @@
-package io.coffeeride.controller;
+package io.coffeeride.controller.api;
 
 
 import io.coffeeride.model.ApiKeyResponse;

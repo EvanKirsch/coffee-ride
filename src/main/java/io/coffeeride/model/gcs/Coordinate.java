@@ -1,5 +1,9 @@
 package io.coffeeride.model.gcs;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /*
  * Problem: 
  *   Coordinates can be represented in both degrees and radians. 
@@ -14,6 +18,16 @@ public final class Coordinate {
 
   private Coordinate(double degrees) {
     this.degrees = degrees;
+  }
+
+  @JsonCreator
+  public Coordinate(@JsonProperty("degrees") Double degrees) {
+    this.degrees = degrees;
+  }
+
+  @JsonGetter
+  public Double getDegrees(){
+    return this.degrees;
   }
 
   public double toDegrees() {

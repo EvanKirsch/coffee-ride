@@ -1,35 +1,28 @@
 package io.coffeeride.service.gpx;
 
-import io.coffeeride.adaptors.RouteAdaptor;
+import io.coffeeride.model.gcs.LatLng;
 import io.jenetics.jpx.GPX;
-import io.jenetics.jpx.XMLProvider;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.dom.DOMResult;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
 
 @Service
 public class GpxFileExporter implements IGpxFileExporter {
 
   private static final Logger log = LoggerFactory.getLogger(GpxFileExporter.class);
 
-  // todo - add adaptor
-  public Document buildDocument(List<RouteAdaptor> routes) {
+  public String buildDocument(List<LatLng> stepsList) {
     final GPX gpx = GPX.builder()
         .addRoute(gpxRoute ->
-            routes.forEach(route ->
-                route.getLegsList().forEach(leg ->
-                    leg.getStepsList().forEach(step ->
-                        gpxRoute.addPoint(p -> p
-                            .lat(step.getLatitude().toDegrees())
-                            .lon(step.getLongitude().toDegrees())
-                            .build()
-                        )
-                    )
+            stepsList.forEach(step ->
+                gpxRoute.addPoint(p -> p
+                    .lat(step.getLatitude().toDegrees())
+                    .lon(step.getLongitude().toDegrees())
+                    .build()
                 )
             )
         ).build();
@@ -37,22 +30,18 @@ public class GpxFileExporter implements IGpxFileExporter {
     return this.writeGpxToDoc(gpx);
   }
 
-  private Document writeGpxToDoc(GPX gpx) {
-    Document doc = null;
+  private String writeGpxToDoc(GPX gpx) {
+    String filename = "tmp/" + UUID.randomUUID() + ".gpx";
 
     try {
-      doc = XMLProvider.provider()
-          .documentBuilderFactory()
-          .newDocumentBuilder()
-          .newDocument();
-      GPX.Writer.DEFAULT.write(gpx, new DOMResult(doc));
+      GPX.write(gpx, Path.of(filename)); // todo - bad
 
-    } catch (ParserConfigurationException | IOException e) {
+    } catch (IOException e) {
       log.error("Failed to Create GPX doc {}", e.getMessage());
 
     }
 
-    return doc;
+    return filename;
   }
 
 }

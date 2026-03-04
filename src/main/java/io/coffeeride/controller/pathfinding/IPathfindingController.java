@@ -1,4 +1,4 @@
-package io.coffeeride.controller;
+package io.coffeeride.controller.pathfinding;
 
 import io.coffeeride.model.PathfindingRequestStr;
 import io.coffeeride.model.PathfindingResponse;
