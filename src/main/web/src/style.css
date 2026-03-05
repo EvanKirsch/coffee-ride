@@ -5,6 +5,13 @@
     opacity: .98;
     z-index: 1;
 }
+#error-box {
+    position: relative;
+    margin-top: 10px;
+    margin-left: 20%;
+    margin-right: 20%;
+    z-index: 1;
+}
 #route-details {
     position: absolute;
     background-color: white;
@@ -32,7 +39,7 @@
     width: 100%;
     --yellow: 255, 215, 0;
     background: rgba(var(--yellow), 0.4);
-    position: absolute;
+    position: relative;
     z-index: 2;
 }
 .off {

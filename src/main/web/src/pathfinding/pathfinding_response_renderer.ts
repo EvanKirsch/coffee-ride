@@ -8,7 +8,6 @@ export class PathfindingResponseRenderer extends AbstractResponseHandler {
   static markers: google.maps.marker.AdvancedMarkerElement[] = [];
 
   protected async onSucess(response : Response) : Promise<void> {
-    console.log(response);
     this.clearResponse();
     const data: PathfindingResponse = await response.json();
     this.renderMarkers(data.legs);
