@@ -3,7 +3,9 @@ package io.coffeeride.service.gpx;
 import io.coffeeride.model.gcs.LatLng;
 import io.jenetics.jpx.GPX;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -31,9 +33,10 @@ public class GpxFileExporter implements IGpxFileExporter {
   }
 
   private String writeGpxToDoc(GPX gpx) {
-    String filename = "tmp/" + UUID.randomUUID() + ".gpx";
+    String filename = UUID.randomUUID() + ".gpx";;
 
     try {
+      filename = getDir() + filename; 
       GPX.write(gpx, Path.of(filename)); // todo - bad
 
     } catch (IOException e) {
@@ -42,6 +45,15 @@ public class GpxFileExporter implements IGpxFileExporter {
     }
 
     return filename;
+  }
+
+  // Should probably be part of startup?
+  private Path getDir() throws IOException {
+    Path path = Paths.get("tmp");
+    if (!Files.exists(path)) {
+      Files.createDirectory(path);
+    }
+    return path;
   }
 
 }
