@@ -1,6 +1,6 @@
-import { PathfindingForm } from "./pathfinding/pathfindingForm"
-import { MapRenderer } from "./map/mapRenderer"
-import { GMapsApiLoader } from "./common/gMapsApiLoader"
+import { PathfindingForm } from "./pathfinding/pathfinding_form"
+import { MapRenderer } from "./map/map_renderer"
+import { GMapsApiLoader } from "./common/gmaps_api_loader"
 
 const gMapsApiLoader = new GMapsApiLoader();
 await gMapsApiLoader.configGMapsJsApi();

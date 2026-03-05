@@ -1,5 +1,5 @@
 import { setOptions } from "@googlemaps/js-api-loader"
-import { EndpointFactory } from "./endpointFactory"
+import { EndpointFactory } from "./endpoint_factory"
 
 export class GMapsApiLoader {
 

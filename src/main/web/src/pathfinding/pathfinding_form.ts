@@ -1,5 +1,5 @@
-import { EndpointFactory } from "../common/endpointFactory"
-import { PathfindingResponseRenderer } from "./pathfindingResponseRenderer"
+import { EndpointFactory } from "../common/endpoint_factory"
+import { PathfindingResponseRenderer } from "./pathfinding_response_renderer"
 
 export class PathfindingForm {
 

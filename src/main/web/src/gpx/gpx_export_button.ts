@@ -1,4 +1,4 @@
-import { EndpointFactory } from "../common/endpointFactory"
+import { EndpointFactory } from "../common/endpoint_factory"
 
 export class GpxExportButton {
 

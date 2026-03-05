@@ -1,6 +1,6 @@
-import { MapRenderer } from "../map/mapRenderer"
-import { GpxExportButton } from "../gpx/gpxExportButton"
-import { AbstractResponseHandler } from "../common/abstractResponseHandler";
+import { MapRenderer } from "../map/map_renderer"
+import { GpxExportButton } from "../gpx/gpx_export_button"
+import { AbstractResponseHandler } from "../common/abstract_response_handler";
 
 export class PathfindingResponseRenderer extends AbstractResponseHandler {
 
