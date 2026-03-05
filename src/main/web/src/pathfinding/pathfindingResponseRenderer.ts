@@ -1,12 +1,14 @@
 import { MapRenderer } from "../map/mapRenderer"
 import { GpxExportButton } from "../gpx/gpxExportButton"
+import { AbstractResponseHandler } from "../common/abstractResponseHandler";
 
-export class PathfindingResponseRenderer {
+export class PathfindingResponseRenderer extends AbstractResponseHandler {
 
   static polyline: google.maps.Polyline;
   static markers: google.maps.marker.AdvancedMarkerElement[] = [];
 
-  async renderResponse(response : Response) {
+  protected async onSucess(response : Response) : Promise<void> {
+    console.log(response);
     this.clearResponse();
     const data: PathfindingResponse = await response.json();
     this.renderMarkers(data.legs);

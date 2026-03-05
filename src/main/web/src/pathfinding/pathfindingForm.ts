@@ -105,7 +105,7 @@ export class PathfindingForm {
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(route)
       }).then(async (response) => {
-        (new PathfindingResponseRenderer()).renderResponse(response)
+        (new PathfindingResponseRenderer()).handleResponse(response)
       })
     })
   }
