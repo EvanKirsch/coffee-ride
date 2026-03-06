@@ -1,5 +1,6 @@
 package io.coffeeride.validation.validator;
 
+import io.coffeeride.util.exception.CoffeeRideInputException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class PathFindingRequestStrValidator extends AbstractValidator<Pathfindin
   public List<Exception> validate(PathfindingRequestStr obj) {
     List<Exception> exceptions = new ArrayList<>();
     if(isNullEmpty(obj.getStepMiles())) {
-      exceptions.add(new Exception("Miles must be entered"));
+      exceptions.add(new CoffeeRideInputException("Miles must be entered"));
     }
     return exceptions;
   }
