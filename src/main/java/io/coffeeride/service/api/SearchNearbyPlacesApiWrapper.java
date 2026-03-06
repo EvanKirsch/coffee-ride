@@ -13,7 +13,6 @@ import io.coffeeride.adaptors.PlaceAdaptor;
 import io.coffeeride.model.gcs.LatLng;
 import io.coffeeride.util.ApplicationProperties;
 import io.coffeeride.util.distance.IDistanceCalculator;
-import io.coffeeride.util.distance.SphereDistanceCalculatorFactory;
 import io.coffeeride.util.exception.CoffeeRideApiException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +33,8 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
   private final IDistanceCalculator distanceCalculator;
 
   @Autowired
-  public SearchNearbyPlacesApiWrapper(SphereDistanceCalculatorFactory dcFactory) {
-    this.distanceCalculator = dcFactory.getCalculator();
+  public SearchNearbyPlacesApiWrapper(IDistanceCalculator distanceCalculator) {
+    this.distanceCalculator = distanceCalculator;
   }
 
   @Override

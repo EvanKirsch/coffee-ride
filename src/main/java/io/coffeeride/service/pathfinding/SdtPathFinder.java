@@ -7,14 +7,10 @@ import io.coffeeride.model.PathfindingRequest;
 import io.coffeeride.model.RouteDetails;
 import io.coffeeride.model.WeightedPlaceGraph;
 import io.coffeeride.model.gcs.LatLng;
-import io.coffeeride.service.api.GeocodeApiWrapper;
 import io.coffeeride.service.api.IGeocodeApiWrapper;
 import io.coffeeride.service.api.IRoutesApiWrapper;
 import io.coffeeride.service.api.ISearchNearbyPlacesApiWrapper;
-import io.coffeeride.service.api.RoutesApiWrapper;
-import io.coffeeride.service.api.SearchNearbyPlacesApiWrapper;
 import io.coffeeride.util.distance.IDistanceCalculator;
-import io.coffeeride.util.distance.SphereDistanceCalculatorFactory;
 import io.coffeeride.util.exception.CoffeeRideApiException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +30,12 @@ public class SdtPathFinder implements IPathFinder {
   private final ConversionService conversionService;
 
   @Autowired
-  public SdtPathFinder(SearchNearbyPlacesApiWrapper searchPlacesWrapper,
-      RoutesApiWrapper routesApiWrapper,
+  public SdtPathFinder(ISearchNearbyPlacesApiWrapper searchPlacesWrapper,
+      IRoutesApiWrapper routesApiWrapper,
       EdgeCalculator edgeCalculator,
       IPlaceGraphFactory graphFactory,
-      GeocodeApiWrapper geocodeApiWrapper,
-      SphereDistanceCalculatorFactory dcFactory,
+      IGeocodeApiWrapper geocodeApiWrapper,
+      IDistanceCalculator distanceCalculator,
       ConversionService conversionService
   ) {
     this.routesApiWrapper = routesApiWrapper;
@@ -47,7 +43,7 @@ public class SdtPathFinder implements IPathFinder {
     this.edgeCalculator = edgeCalculator;
     this.graphFactory = graphFactory;
     this.geocodeApiWrapper = geocodeApiWrapper;
-    this.distanceCalculator = dcFactory.getCalculator();
+    this.distanceCalculator = distanceCalculator;
     this.conversionService = conversionService;
   }
 

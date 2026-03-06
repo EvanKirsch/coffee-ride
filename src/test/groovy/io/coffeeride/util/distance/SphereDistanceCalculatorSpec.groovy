@@ -8,8 +8,7 @@ class SphereDistanceCalculatorSpec extends SpecDec {
     SphereDistanceCalculator sdc // testing impl not interface
 
     def setup() {
-        DistanceCalculatorFactory dcf = new SphereDistanceCalculatorFactory()
-        sdc = dcf.getCalculator()
+        sdc = new SphereDistanceCalculator()
     }
 
     def "ApproxDistance"() {

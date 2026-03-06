@@ -5,7 +5,6 @@ import io.coffeeride.model.Node;
 import io.coffeeride.model.WeightedPlaceGraph;
 import io.coffeeride.model.gcs.LatLng;
 import io.coffeeride.util.distance.IDistanceCalculator;
-import io.coffeeride.util.distance.SphereDistanceCalculatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,9 @@ public class WeightedPlaceGraphFactory implements IPlaceGraphFactory {
   private final ConversionService conversionService;
 
   @Autowired
-  public WeightedPlaceGraphFactory(SphereDistanceCalculatorFactory dcFactory,
+  public WeightedPlaceGraphFactory(IDistanceCalculator distanceCalculator,
       ConversionService conversionService) {
-    this.distanceCalculator = dcFactory.getCalculator();
+    this.distanceCalculator = distanceCalculator;
     this.conversionService = conversionService;
   }
 

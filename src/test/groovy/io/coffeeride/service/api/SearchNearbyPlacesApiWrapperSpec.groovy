@@ -1,18 +1,17 @@
 package io.coffeeride.service.api
 
 import io.coffeeride.SpecDec
-import io.coffeeride.util.distance.DistanceCalculatorFactory
-import spock.lang.Ignore
+import io.coffeeride.model.gcs.Length
+import io.coffeeride.util.distance.IDistanceCalculator
 
-@Ignore
 class SearchNearbyPlacesApiWrapperSpec extends SpecDec {
 
     SearchNearbyPlacesApiWrapper snp // testing impl not interface
-    DistanceCalculatorFactory dcf
+    IDistanceCalculator dc
 
     def setup() {
-        dcf = Mock()
-        snp = new SearchNearbyPlacesApiWrapper(dcf)
+        dc = Mock()
+        snp = new SearchNearbyPlacesApiWrapper(dc)
     }
 
     def "GetLocationRestriction"() {
@@ -20,14 +19,15 @@ class SearchNearbyPlacesApiWrapperSpec extends SpecDec {
         def found = snp.getLocationRestriction(p0, p1)
 
         then:
-        // TODO
+        1 * dc.approxDistance(p0, p1) >> Length.fromMeters(expectedRadius)
+        found.circle.radius == expectedRadius
         0 * _
 
         where:
-        p0                               | p1
-        CLatLng(0, 0)                    | CLatLng(0, 0)
-        CLatLng(10, 0)                   | CLatLng(0, -10)
-        CLatLng(37.420761, -122.081356)  | CLatLng(37.41767, -122.079595)
+        p0                              | p1                             | expectedRadius
+        CLatLng(0, 0)                   | CLatLng(0, 0)                  | 0
+        CLatLng(10, 0)                  | CLatLng(0, -10)                | 10
+        CLatLng(37.420761, -122.081356) | CLatLng(37.41767, -122.079595) | 2
     }
 
 }

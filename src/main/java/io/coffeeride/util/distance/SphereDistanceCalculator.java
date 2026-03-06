@@ -8,13 +8,9 @@ import org.springframework.stereotype.Component;
 // notes on distance calculations on earth: https://www.movable-type.co.uk/scripts/gis-faq-5.1.html
 // package public to force interface use outside of package
 @Component
-final class SphereDistanceCalculator extends DistanceCalculator {
+final class SphereDistanceCalculator implements IDistanceCalculator {
 
   private static final int EARTH_RADIUS_METERS = 6371000;
-
-  public SphereDistanceCalculator build() {
-    return new SphereDistanceCalculator();
-  }
 
   @Override
   public Length approxDistance(LatLng p0, LatLng p1) {
@@ -70,6 +66,20 @@ final class SphereDistanceCalculator extends DistanceCalculator {
           .longitude(Coordinate.fromDegrees(p0.getLongitude().toDegrees() - uvLng))
           .build();
     }
+  }
+
+  public LatLng getCenter(LatLng p0, LatLng p1) {
+    double latMid = (p0.getLatitude().toDegrees() + p1.getLatitude().toDegrees()) / 2;
+    double lngMid = (p0.getLongitude().toDegrees() + p1.getLongitude().toDegrees()) / 2;
+
+    return LatLng.builder()
+        .latitude(Coordinate.fromDegrees(latMid))
+        .longitude(Coordinate.fromDegrees(lngMid))
+        .build();
+  }
+
+  static double distance(Coordinate c0, Coordinate c1) {
+    return Math.sqrt(Math.pow(c0.toDegrees() - c1.toDegrees(), 2));
   }
 
 }
