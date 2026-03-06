@@ -14,6 +14,7 @@ import io.coffeeride.model.gcs.LatLng;
 import io.coffeeride.util.ApplicationProperties;
 import io.coffeeride.util.distance.IDistanceCalculator;
 import io.coffeeride.util.distance.SphereDistanceCalculatorFactory;
+import io.coffeeride.util.exception.CoffeeRideApiException;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -38,7 +39,8 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
   }
 
   @Override
-  public List<PlaceAdaptor> searchNearby(LatLng origin, LatLng destination) {
+  public List<PlaceAdaptor> searchNearby(LatLng origin, LatLng destination)
+      throws CoffeeRideApiException {
     List<PlaceAdaptor> places = new ArrayList<>();
 
     try {
@@ -69,11 +71,11 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
           List<Place> googlePlaces = searchNearbyResponse.getPlacesList();
           googlePlaces.forEach(elt -> places.add(new GooglePlaceAdaptor(elt)));
         } else {
-          log.warn("No routes found.");
+          throw new Exception("No Places Found");
         }
       }
     } catch (Exception e) {
-      log.error(e.getMessage());
+      throw new CoffeeRideApiException("Failed Google API call to Find Nearby Places: " + e.getMessage(), e);
     }
     return places;
   }

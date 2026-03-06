@@ -15,6 +15,7 @@ import io.coffeeride.service.api.RoutesApiWrapper;
 import io.coffeeride.service.api.SearchNearbyPlacesApiWrapper;
 import io.coffeeride.util.distance.IDistanceCalculator;
 import io.coffeeride.util.distance.SphereDistanceCalculatorFactory;
+import io.coffeeride.util.exception.CoffeeRideApiException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,8 @@ public class SdtPathFinder implements IPathFinder {
   }
 
   @Override
-  public RouteDetails buildRoute(PathfindingRequest pathfindingRequest) {
+  public RouteDetails buildRoute(PathfindingRequest pathfindingRequest)
+      throws CoffeeRideApiException {
     LatLng target;
     List<PlaceAdaptor> intermediates = new ArrayList<>();
 

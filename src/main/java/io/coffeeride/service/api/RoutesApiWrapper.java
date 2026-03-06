@@ -15,6 +15,7 @@ import io.coffeeride.adaptors.PlaceAdaptor;
 import io.coffeeride.adaptors.RouteAdaptor;
 import io.coffeeride.model.gcs.LatLng;
 import io.coffeeride.util.ApplicationProperties;
+import io.coffeeride.util.exception.CoffeeRideApiException;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class RoutesApiWrapper implements IRoutesApiWrapper {
 
   @Override
   public List<RouteAdaptor> computeRoute(LatLng origin, LatLng destination,
-      List<PlaceAdaptor> intermediates) {
+      List<PlaceAdaptor> intermediates) throws CoffeeRideApiException {
     List<RouteAdaptor> routes = new ArrayList<>();
     String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
 
@@ -75,7 +76,7 @@ public class RoutesApiWrapper implements IRoutesApiWrapper {
 
       }
     } catch (Exception e) {
-      log.error(e.getMessage());
+      throw new CoffeeRideApiException("Failed Google API call to Compute Route: " + e.getMessage(), e);
     }
     return routes;
   }

@@ -1,5 +1,6 @@
 package io.coffeeride.controller;
 
+import io.coffeeride.util.exception.CoffeeRideApiException;
 import io.coffeeride.util.exception.CoffeeRideInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,9 @@ public class CoffeeRideExceptionHandler {
     return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
   }
 
-  @ExceptionHandler(Exception.class)
+  @ExceptionHandler({CoffeeRideApiException.class, Exception.class})
   public ResponseEntity<String> handleError(Exception e) {
-    log.warn("Handling Response Error : {}", e.getMessage());
+    log.error("Internal Server Error : ", e);
     return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
