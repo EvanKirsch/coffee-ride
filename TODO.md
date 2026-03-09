@@ -4,7 +4,6 @@
 ## Features
 - [ ] print more details on screen
 - [ ] make prettier
-- [ ] add gpx export
 
 ## Known Issues
 - [ ] fix pathfinding to solution on dead end in stdpathfinder
@@ -12,4 +11,4 @@
   - [ ] min end/max start results in overshooting target
 
 ## Tech Debt
-- [ ] test server side geocoding service wrapper
+- [ ] test
