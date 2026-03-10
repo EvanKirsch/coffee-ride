@@ -83,18 +83,52 @@ export class PathfindingForm {
   }
 
   private buildInputButton() : HTMLElement {
-    const input = document.createElement("input");
-    input.setAttribute("id", "fcs-submit");
-    input.setAttribute("type", "submit");
-    input.setAttribute("value", "Find Coffee Stops");
-    input.classList.add("btn", "btn-primary");
+    const button = document.createElement("button");
+    button.setAttribute("id", "fcs-submit");
+    button.setAttribute("type", "submit");
+    button.classList.add("btn", "btn-primary");
 
-    return input;
+    const spanWaiting = document.createElement("span");
+    spanWaiting.setAttribute("id", "fcs-submit-pending");
+    spanWaiting.innerText = "Find Coffee Stops";
+
+    const spanLoading = document.createElement("span");
+    spanLoading.setAttribute("id", "fcs-submit-loading");
+    spanLoading.setAttribute("aria-hidden", "true");
+    spanLoading.setAttribute("role", "status");
+    spanLoading.classList.add("off", "spinner-border", "spinner-border-sm");
+    spanLoading.innerText = "Looking for Coffee...";
+
+    button.appendChild(spanWaiting);
+    button.appendChild(spanLoading);
+
+    return button;
+  }
+
+  private static toggleLoadingOn() {
+    const loading = document.getElementById("fcs-submit-loading");
+    const pending = document.getElementById("fcs-submit-pending");
+    loading?.classList.add("on")
+    loading?.classList.remove("off")
+
+    pending?.classList.add("off")
+    pending?.classList.remove("on")
+  }
+
+  private static toggleLoadingOff() {
+    const loading = document.getElementById("fcs-submit-loading");
+    const pending = document.getElementById("fcs-submit-pending");
+    loading?.classList.remove("on")
+    loading?.classList.add("off")
+
+    pending?.classList.remove("off")
+    pending?.classList.add("on")
   }
 
   private addPathfindingSubmitEvent(elt : HTMLElement) {
     elt.addEventListener("click", function(e) {
       e.preventDefault()
+      PathfindingForm.toggleLoadingOn();
       const route = <Route>({
         origin: (<HTMLInputElement>document.getElementById("origin"))?.value,
         destination: (<HTMLInputElement>document.getElementById("destination"))?.value,
@@ -105,6 +139,7 @@ export class PathfindingForm {
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(route)
       }).then(async (response) => {
+        PathfindingForm.toggleLoadingOff();
         (new PathfindingResponseRenderer()).handleResponse(response)
       })
     })
