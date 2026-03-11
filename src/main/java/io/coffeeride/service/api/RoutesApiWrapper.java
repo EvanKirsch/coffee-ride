@@ -18,8 +18,6 @@ import io.coffeeride.util.ApplicationProperties;
 import io.coffeeride.util.exception.CoffeeRideApiException;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -27,7 +25,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoutesApiWrapper implements IRoutesApiWrapper {
 
-  private static final Logger log = LoggerFactory.getLogger(RoutesApiWrapper.class);
   private static final String FIELD_MASK_HEADER = "X-Goog-FieldMask";
   private static final String FIELD_MASK_VALUE = "routes.duration,routes.distanceMeters,routes.polyline,routes.legs";
 
