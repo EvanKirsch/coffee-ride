@@ -1,20 +1,20 @@
-# [Coffeeride.io](https://coffeeride.io/)
-Passion project I use to design my bike rides around coffee stops.
+# :coffee: [Coffeeride.io](https://coffeeride.io/) :bicyclist:
+Passion project I use to design my bike rides around coffee stops. 
 
-## Table of Contents
-- [Tooling](#tooling)
-- [Build and Run](#build-and-run)
-- [Endpoints](#endpoints)
-- [Prototypes](#prototypes)
+## :open_file_folder: Table of Contents
+- [:toolbox: Tooling](#toolbox-tooling)
+- [:gear: Build and Run](#gear-build-and-run)
+- [:spiral_notepad: Endpoints](#spiral_notepad-endpoints)
+- [:camera: Prototypes](#camera-prototypes)
 
-## Tooling
+## :toolbox: Tooling
 For package dependencies see pom.xml and package.json.
 - java 17+
 - maven 3.9+
 - node 22+
 - npm 10.9+
 
-## Build and Run
+## :gear: Build and Run
 The application is currently built as a single module with the command `mvn clean install`
 Client side resources are compiled to static resources and copied into the jar containing the server side services.
 
@@ -27,7 +27,7 @@ mvn clean install
 java -jar target/coffee-ride-1.0-SNAPSHOT.jar
 ```
 
-## Endpoints
+## :spiral_notepad: Endpoints
 ### /pathfinding
 ```bash
 curl -X PUT -d '{
@@ -37,7 +37,7 @@ curl -X PUT -d '{
 }' -H 'Content-Type: application/json' coffeeride.io/pathfinding
 ```
 
-## Prototypes
+## :camera: Prototypes
 ![prototype 6 screenshot](https://github.com/EvanKirsch/coffeeRide/blob/master/screenshots/prototype_6.png)
 ![prototype 5 screenshot](https://github.com/EvanKirsch/coffeeRide/blob/master/screenshots/prototype_5.png)
 ![prototype 4 screenshot](https://github.com/EvanKirsch/coffeeRide/blob/master/screenshots/prototype_4.png)
