@@ -1,3 +1,12 @@
+# Coffeeride.io
+Passion project I use to design my bike rides around coffee stops.
+
+## Table of Contents
+- [Endpoints](#endpoints)
+- [Prototypes](#prototypes)
+
+## Endpoints
+### /pathfinding
 ```bash
 curl -X PUT -d '{
   "origin":"Milwaukee, WI",
@@ -6,7 +15,7 @@ curl -X PUT -d '{
 }' -H 'Content-Type: application/json' coffeeride.io/pathfinding
 ```
 
-Prototypes:
+## Prototypes
 ![prototype 6 screenshot](https://github.com/EvanKirsch/coffeeRide/blob/master/screenshots/prototype_6.png)
 ![prototype 5 screenshot](https://github.com/EvanKirsch/coffeeRide/blob/master/screenshots/prototype_5.png)
 ![prototype 4 screenshot](https://github.com/EvanKirsch/coffeeRide/blob/master/screenshots/prototype_4.png)
