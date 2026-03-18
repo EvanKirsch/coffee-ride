@@ -2,10 +2,10 @@
 Passion project I use to design my bike rides around coffee stops. 
 
 ## :open_file_folder: Table of Contents
-- :toolbox: [Tooling](#toolbox-tooling)
-- :gear: [Build and Run](#gear-build-and-run)
-- :spiral_notepad: [Endpoints](#spiral_notepad-endpoints)
-- :camera: [Prototypes](#camera-prototypes)
+- [:toolbox: Tooling](#toolbox-tooling)
+- [:gear: Build and Run](#gear-build-and-run)
+- [:spiral_notepad: Endpoints](#spiral_notepad-endpoints)
+- [:camera: Prototypes](#camera-prototypes)
 
 ## :toolbox: Tooling
 For package dependencies see pom.xml and package.json.
