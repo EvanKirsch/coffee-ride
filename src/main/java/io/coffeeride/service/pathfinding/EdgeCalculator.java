@@ -20,9 +20,6 @@ public class EdgeCalculator {
       return n0.getDistanceToTerminus() < n1.getDistanceToTerminus() ? -1 : 1;
     });
 
-    graph.getNodes()
-        .removeIf(elt -> elt.getDistanceToStart() == 0);
-
     debugUtil.printGraph(graph);
     return graph;
   }
