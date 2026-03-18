@@ -1,5 +1,7 @@
 # :coffee: [Coffeeride.io](https://coffeeride.io/) :bicyclist:
-Passion project I use to design my bike rides around coffee stops. 
+Passion project I use to design my bike rides around coffee stops.
+
+Currently, the best way to pathfind while cycling is manually evaluating the route. Can I write software that will reasonably route a coffee rider or bicycle tourist?
 
 ## :open_file_folder: Table of Contents
 - [:toolbox: Tooling](#toolbox-tooling)
