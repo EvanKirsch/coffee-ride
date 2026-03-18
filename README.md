@@ -1,5 +1,5 @@
-# [Coffeeride.io](https://coffeeride.io/)
-Passion project I use to design my bike rides around coffee stops. :bicyclist:
+# [Coffeeride.io](https://coffeeride.io/) :coffee::bicyclist:
+Passion project I use to design my bike rides around coffee stops. 
 
 ## Table of Contents
 - [Tooling](#tooling)
