@@ -24,6 +24,7 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
 
   private static final String FIELD_MASK_HEADER = "X-Goog-FieldMask";
   private static final String FIELD_MASK_VALUE = "*";
+  private static final int FIELD_MAX_RADIUS = 50000;
 
   private final String apiKey = ApplicationProperties.getInstance().getGoogleJavaApiKey();
 
@@ -85,9 +86,13 @@ public class SearchNearbyPlacesApiWrapper implements ISearchNearbyPlacesApiWrapp
         .setLongitude(destination.getLongitude().toDegrees())
         .build();
 
+    double distance = Math.min(
+      distanceCalculator.approxDistance(origin, destination).toMeters(),
+      FIELD_MAX_RADIUS);
+
     Circle searchArea = Circle.newBuilder()
         .setCenter(ll)
-        .setRadius(distanceCalculator.approxDistance(origin, destination).toMeters())
+        .setRadius(distance)
         .build();
 
     return SearchNearbyRequest.LocationRestriction
