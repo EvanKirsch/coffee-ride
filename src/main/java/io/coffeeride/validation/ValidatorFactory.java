@@ -20,6 +20,7 @@ public class ValidatorFactory implements IValidatorFactory {
   }
 
   // TODO - is this idiomatic?
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public <T> IValidator<T> build(Class<T> t) throws MethodNotFoundException {
     Map<String, AbstractValidator> beanMap = applicationContext.getBeansOfType(AbstractValidator.class);
     List<AbstractValidator> beans = beanMap.values().stream().toList();
