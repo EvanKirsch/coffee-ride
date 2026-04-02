@@ -18,6 +18,17 @@ public final class GooglePlaceAdaptor implements PlaceAdaptor {
         .build();
   }
 
+  public GooglePlaceAdaptor(LatLng latLng) {
+    this.place = Place.newBuilder()
+        .setLocation(com.google.type.LatLng.newBuilder()
+            .setLatitude(latLng.getLatitude().toDegrees())
+            .setLongitude(latLng.getLatitude().toDegrees())
+            .build()
+        )
+        .build();
+
+  }
+
   @Override
   public String getDisplayName() {
     return place.getDisplayName().getText();
