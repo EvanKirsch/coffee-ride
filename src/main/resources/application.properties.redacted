@@ -1,2 +1,3 @@
-com.google.api.key=
 com.google.maps.places.max_result_count=20
+com.google.api.key.java=
+com.google.api.key.js=
