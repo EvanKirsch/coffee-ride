@@ -3,19 +3,23 @@ import { EndpointFactory } from "../common/endpoint_factory"
 export class GpxExportButton {
 
   public buildGpxExportButton(steps : LatLng[]) : HTMLElement {
-    const button = this.buildButton();
-    this.addGpxExportSubmitEvent(button, steps);
-    return button;
+    const { wrapper, input } = this.buildButton();
+    this.addGpxExportSubmitEvent(input, steps);
+    return wrapper;
   }
 
-  private buildButton() : HTMLElement {
+  private buildButton() : { wrapper: HTMLElement, input: HTMLInputElement } {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("gpx-button-wrapper");
+
     const input = document.createElement("input");
     input.setAttribute("id", "gpx-export-submit");
     input.setAttribute("type", "submit");
-    input.setAttribute("value", "Download GPX File");
-    input.classList.add("btn", "btn-primary");
+    input.setAttribute("value", "⬇ Download GPX");
+    input.classList.add("btn", "btn-success", "gpx-export-btn");
 
-    return input;
+    wrapper.appendChild(input);
+    return { wrapper, input };
   }
 
   private addGpxExportSubmitEvent(elt : HTMLElement, steps : LatLng[]) {

@@ -66,17 +66,49 @@ export class PathfindingResponseRenderer extends AbstractResponseHandler {
     if (!!routeDetails) {
       routeDetails.classList.add("on");
       routeDetails.classList.remove("off");
+
+      const header = document.createElement("div");
+      header.classList.add("route-details-header");
+      header.innerHTML = `<span class="route-details-title">☕ Your Route</span>`;
+      routeDetails.appendChild(header);
+
       const routeDetailsList = document.createElement("ol");
-      routeDetailsList.classList.add("list-group");
-      legs.forEach((place) => {
-        let li = document.createElement("li");
-        li.classList.add("list-group-item");
-        li.innerText = place.destination.displayName + " " + place.destination.address;
-        routeDetailsList.appendChild(li);
-      })
+      routeDetailsList.classList.add("list-group", "route-stop-list");
+
+      const origin = legs[0].origin;
+      routeDetailsList.appendChild(this.buildStopItem(origin.displayName, origin.address, "Start", "route-stop-origin"));
+
+      legs.forEach((leg, i) => {
+        const label = i === legs.length - 1 ? "End" : `Stop ${i + 1}`;
+        routeDetailsList.appendChild(this.buildStopItem(leg.destination.displayName, leg.destination.address, label));
+      });
+
       routeDetails.appendChild(routeDetailsList);
     }
     return routeDetails || document.createElement("div");
+  }
+
+  private buildStopItem(name: string, address: string, label: string, extraClass?: string) : HTMLElement {
+    const li = document.createElement("li");
+    li.classList.add("list-group-item", "route-stop-item");
+    if (extraClass) li.classList.add(extraClass);
+
+    const badge = document.createElement("span");
+    badge.classList.add("route-stop-badge");
+    badge.innerText = label;
+
+    const nameEl = document.createElement("strong");
+    nameEl.classList.add("route-stop-name");
+    nameEl.innerText = name;
+
+    const addressEl = document.createElement("small");
+    addressEl.classList.add("route-stop-address");
+    addressEl.innerText = address;
+
+    li.appendChild(badge);
+    li.appendChild(nameEl);
+    li.appendChild(addressEl);
+    return li;
   }
 
   private clearResponse() {
